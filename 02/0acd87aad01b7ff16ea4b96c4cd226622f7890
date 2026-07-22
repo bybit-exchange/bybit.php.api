@@ -1,0 +1,25 @@
+src/RestApi/EarnService.php
+  debb31dbf24bc172 1294-1298
+src/RestApi/MarketService.php
+  debb31dbf24bc172 417-421
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2-bit.10+672fbf0",
+  "base_commit_sha": "020acd87aad01b7ff16ea4b96c4cd226622f7890",
+  "prompts": {
+    "debb31dbf24bc172": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "892a0b39-6356-46b6-b3c2-aac69af7e47f",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "doris-xiao-bybit",
+      "messages": [],
+      "total_additions": 20,
+      "total_deletions": 8,
+      "accepted_lines": 5202,
+      "overriden_lines": 0
+    }
+  }
+}
