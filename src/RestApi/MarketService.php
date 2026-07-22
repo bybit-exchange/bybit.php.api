@@ -414,7 +414,10 @@ final class MarketService extends BaseService
      */
     public function getTickers(string $category, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/tickers',
-            array_merge($options, ['category' => $category]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/tickers',
+            array_merge($options, ['category' => $category])
+        );
     }
 }

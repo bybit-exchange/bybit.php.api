@@ -1291,7 +1291,10 @@ final class EarnService extends BaseService
      */
     public function setFixedTermAutoInvest(string $productId, string $category, string $positionId, string $status, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/fixed-term/position/auto-invest',
-            array_merge($options, ['productId' => $productId, 'category' => $category, 'positionId' => $positionId, 'status' => $status]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/fixed-term/position/auto-invest',
+            array_merge($options, ['productId' => $productId, 'category' => $category, 'positionId' => $positionId, 'status' => $status])
+        );
     }
 }
