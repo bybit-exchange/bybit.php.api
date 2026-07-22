@@ -1,0 +1,11 @@
+parameters:
+    level: 6
+    paths:
+        - src
+    excludePaths:
+        - vendor
+    # A future pass could annotate every service method's `array $options` and
+    # `array` return with `array<string,mixed>`; until then, silence the generic
+    # complaint uniformly. Runtime `array` typehints still enforce array-ness.
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
