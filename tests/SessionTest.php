@@ -6,17 +6,17 @@ namespace Bybit\Tests;
 
 use Bybit\Authentication;
 use Bybit\Configuration;
-use Bybit\Session;
 use Bybit\Exception\{
     AuthException,
-    RateLimitException,
-    ServerException,
     ClientException as BybitClientException,
     ConfigurationException,
     NetworkException,
+    RateLimitException,
+    ServerException,
     TimeoutException,
     TransportException,
 };
+use Bybit\Session;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\TransferException;

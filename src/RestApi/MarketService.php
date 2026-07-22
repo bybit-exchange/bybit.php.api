@@ -32,8 +32,11 @@ final class MarketService extends BaseService
      */
     public function getDeliveryPrice(string $category, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/delivery-price',
-            array_merge($options, ['category' => $category]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/delivery-price',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -48,8 +51,11 @@ final class MarketService extends BaseService
      */
     public function getFeeGroupInfo(string $productType, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/fee-group-info',
-            array_merge($options, ['productType' => $productType]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/fee-group-info',
+            array_merge($options, ['productType' => $productType])
+        );
     }
 
     /**
@@ -65,8 +71,11 @@ final class MarketService extends BaseService
      */
     public function getFundingRateHistory(string $category, string $symbol, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/funding/history',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/funding/history',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol])
+        );
     }
 
     /**
@@ -81,8 +90,11 @@ final class MarketService extends BaseService
      */
     public function getHistoricalVolatility(string $category, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/historical-volatility',
-            array_merge($options, ['category' => $category]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/historical-volatility',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -97,8 +109,11 @@ final class MarketService extends BaseService
      */
     public function getIndexPriceComponents(string $indexName, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/index-price-components',
-            array_merge($options, ['indexName' => $indexName]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/index-price-components',
+            array_merge($options, ['indexName' => $indexName])
+        );
     }
 
     /**
@@ -114,8 +129,11 @@ final class MarketService extends BaseService
      */
     public function getIndexPriceKline(string $symbol, string $interval, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/index-price-kline',
-            array_merge($options, ['symbol' => $symbol, 'interval' => $interval]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/index-price-kline',
+            array_merge($options, ['symbol' => $symbol, 'interval' => $interval])
+        );
     }
 
     /**
@@ -130,8 +148,11 @@ final class MarketService extends BaseService
      */
     public function getInstrumentsInfo(string $category, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/instruments-info',
-            array_merge($options, ['category' => $category]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/instruments-info',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -162,8 +183,11 @@ final class MarketService extends BaseService
      */
     public function getLongShortRatio(string $category, string $symbol, string $period, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/account-ratio',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'period' => $period]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/account-ratio',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'period' => $period])
+        );
     }
 
     /**
@@ -179,8 +203,11 @@ final class MarketService extends BaseService
      */
     public function getKline(string $symbol, string $interval, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/kline',
-            array_merge($options, ['symbol' => $symbol, 'interval' => $interval]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/kline',
+            array_merge($options, ['symbol' => $symbol, 'interval' => $interval])
+        );
     }
 
     /**
@@ -196,8 +223,11 @@ final class MarketService extends BaseService
      */
     public function getMarkPriceKline(string $symbol, string $interval, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/mark-price-kline',
-            array_merge($options, ['symbol' => $symbol, 'interval' => $interval]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/mark-price-kline',
+            array_merge($options, ['symbol' => $symbol, 'interval' => $interval])
+        );
     }
 
     /**
@@ -213,8 +243,11 @@ final class MarketService extends BaseService
      */
     public function getNewDeliveryPrice(string $category, string $baseCoin, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/new-delivery-price',
-            array_merge($options, ['category' => $category, 'baseCoin' => $baseCoin]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/new-delivery-price',
+            array_merge($options, ['category' => $category, 'baseCoin' => $baseCoin])
+        );
     }
 
     /**
@@ -231,8 +264,11 @@ final class MarketService extends BaseService
      */
     public function getOpenInterest(string $category, string $symbol, string $intervalTime, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/open-interest',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'intervalTime' => $intervalTime]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/open-interest',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'intervalTime' => $intervalTime])
+        );
     }
 
     /**
@@ -248,8 +284,11 @@ final class MarketService extends BaseService
      */
     public function getOrderbook(string $category, string $symbol, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/orderbook',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/orderbook',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol])
+        );
     }
 
     /**
@@ -264,8 +303,11 @@ final class MarketService extends BaseService
      */
     public function getOrderPriceLimit(string $symbol, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/price-limit',
-            array_merge($options, ['symbol' => $symbol]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/price-limit',
+            array_merge($options, ['symbol' => $symbol])
+        );
     }
 
     /**
@@ -281,8 +323,11 @@ final class MarketService extends BaseService
      */
     public function getPremiumIndexPriceKline(string $symbol, string $interval, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/premium-index-price-kline',
-            array_merge($options, ['symbol' => $symbol, 'interval' => $interval]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/premium-index-price-kline',
+            array_merge($options, ['symbol' => $symbol, 'interval' => $interval])
+        );
     }
 
     /**
@@ -297,8 +342,11 @@ final class MarketService extends BaseService
      */
     public function getRecentPublicTrades(string $category, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/recent-trade',
-            array_merge($options, ['category' => $category]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/recent-trade',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -313,8 +361,11 @@ final class MarketService extends BaseService
      */
     public function getRiskLimit(string $category, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/risk-limit',
-            array_merge($options, ['category' => $category]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/risk-limit',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -330,8 +381,11 @@ final class MarketService extends BaseService
      */
     public function getRpiOrderbook(string $symbol, int $limit, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/rpi_orderbook',
-            array_merge($options, ['symbol' => $symbol, 'limit' => $limit]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/market/rpi_orderbook',
+            array_merge($options, ['symbol' => $symbol, 'limit' => $limit])
+        );
     }
 
     /**

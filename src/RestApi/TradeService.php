@@ -18,8 +18,11 @@ final class TradeService extends BaseService
      */
     public function getHistory(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/execution/list',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/execution/list',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -35,8 +38,11 @@ final class TradeService extends BaseService
      */
     public function amendOrder(string $category, string $symbol, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/order/amend',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/order/amend',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol])
+        );
     }
 
     /**
@@ -52,8 +58,11 @@ final class TradeService extends BaseService
      */
     public function batchAmendOrders(string $category, array $request, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/order/amend-batch',
-            array_merge($options, ['category' => $category, 'request' => $request]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/order/amend-batch',
+            array_merge($options, ['category' => $category, 'request' => $request])
+        );
     }
 
     /**
@@ -69,8 +78,11 @@ final class TradeService extends BaseService
      */
     public function batchCancelOrders(string $category, array $request, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/order/cancel-batch',
-            array_merge($options, ['category' => $category, 'request' => $request]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/order/cancel-batch',
+            array_merge($options, ['category' => $category, 'request' => $request])
+        );
     }
 
     /**
@@ -86,8 +98,11 @@ final class TradeService extends BaseService
      */
     public function batchCreateOrders(string $category, array $request, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/order/create-batch',
-            array_merge($options, ['category' => $category, 'request' => $request]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/order/create-batch',
+            array_merge($options, ['category' => $category, 'request' => $request])
+        );
     }
 
     /**
@@ -102,8 +117,11 @@ final class TradeService extends BaseService
      */
     public function cancelAllOrders(string $category, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/order/cancel-all',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/order/cancel-all',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -119,8 +137,11 @@ final class TradeService extends BaseService
      */
     public function cancelOrder(string $category, string $symbol, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/order/cancel',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/order/cancel',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol])
+        );
     }
 
     /**
@@ -139,8 +160,11 @@ final class TradeService extends BaseService
      */
     public function createOrder(string $category, string $symbol, string $side, string $orderType, string $qty, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/order/create',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'side' => $side, 'orderType' => $orderType, 'qty' => $qty]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/order/create',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'side' => $side, 'orderType' => $orderType, 'qty' => $qty])
+        );
     }
 
     /**
@@ -155,8 +179,11 @@ final class TradeService extends BaseService
      */
     public function dcpSetTimewindow(int $timeWindow, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/order/disconnected-cancel-all',
-            array_merge($options, ['timeWindow' => $timeWindow]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/order/disconnected-cancel-all',
+            array_merge($options, ['timeWindow' => $timeWindow])
+        );
     }
 
     /**
@@ -171,8 +198,11 @@ final class TradeService extends BaseService
      */
     public function getOpenOrders(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/order/realtime',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/order/realtime',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -187,8 +217,11 @@ final class TradeService extends BaseService
      */
     public function getOrderHistory(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/order/history',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/order/history',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -205,8 +238,11 @@ final class TradeService extends BaseService
      */
     public function getSpotBorrowQuota(string $category, string $symbol, string $side, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/order/spot-borrow-check',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'side' => $side]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/order/spot-borrow-check',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'side' => $side])
+        );
     }
 
     /**
@@ -225,7 +261,10 @@ final class TradeService extends BaseService
      */
     public function preCheckOrder(string $category, string $symbol, string $side, string $orderType, string $qty, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/order/pre-check',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'side' => $side, 'orderType' => $orderType, 'qty' => $qty]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/order/pre-check',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'side' => $side, 'orderType' => $orderType, 'qty' => $qty])
+        );
     }
 }

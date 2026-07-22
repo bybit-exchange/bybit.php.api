@@ -20,8 +20,11 @@ final class CryptoLoanService extends BaseService
      */
     public function adjustLtv(string $currency, string $amount, int $direction, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/crypto-loan-common/adjust-ltv',
-            array_merge($options, ['currency' => $currency, 'amount' => $amount, 'direction' => $direction]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/crypto-loan-common/adjust-ltv',
+            array_merge($options, ['currency' => $currency, 'amount' => $amount, 'direction' => $direction])
+        );
     }
 
     /**
@@ -78,8 +81,11 @@ final class CryptoLoanService extends BaseService
      */
     public function getMaxCollateralAmount(string $currency, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/crypto-loan-common/max-collateral-amount',
-            array_merge($options, ['currency' => $currency]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/crypto-loan-common/max-collateral-amount',
+            array_merge($options, ['currency' => $currency])
+        );
     }
 
     /**
@@ -109,8 +115,11 @@ final class CryptoLoanService extends BaseService
      */
     public function maxLoan(string $currency, array $collateralList, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/crypto-loan-common/max-loan',
-            array_merge($options, ['currency' => $currency, 'collateralList' => $collateralList]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/crypto-loan-common/max-loan',
+            array_merge($options, ['currency' => $currency, 'collateralList' => $collateralList])
+        );
     }
 
     /**
@@ -125,8 +134,11 @@ final class CryptoLoanService extends BaseService
      */
     public function cancelFixedBorrowOrder(string $orderId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/crypto-loan-fixed/borrow-order-cancel',
-            array_merge($options, ['orderId' => $orderId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/crypto-loan-fixed/borrow-order-cancel',
+            array_merge($options, ['orderId' => $orderId])
+        );
     }
 
     /**
@@ -141,8 +153,11 @@ final class CryptoLoanService extends BaseService
      */
     public function cancelFixedSupplyOrder(string $orderId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/crypto-loan-fixed/supply-order-cancel',
-            array_merge($options, ['orderId' => $orderId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/crypto-loan-fixed/supply-order-cancel',
+            array_merge($options, ['orderId' => $orderId])
+        );
     }
 
     /**
@@ -161,8 +176,11 @@ final class CryptoLoanService extends BaseService
      */
     public function createFixedBorrow(string $orderCurrency, string $orderAmount, string $annualRate, string $term, array $collateralList, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/crypto-loan-fixed/borrow',
-            array_merge($options, ['orderCurrency' => $orderCurrency, 'orderAmount' => $orderAmount, 'annualRate' => $annualRate, 'term' => $term, 'collateralList' => $collateralList]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/crypto-loan-fixed/borrow',
+            array_merge($options, ['orderCurrency' => $orderCurrency, 'orderAmount' => $orderAmount, 'annualRate' => $annualRate, 'term' => $term, 'collateralList' => $collateralList])
+        );
     }
 
     /**
@@ -178,8 +196,11 @@ final class CryptoLoanService extends BaseService
      */
     public function fullyRepayCryptoLoanFixed(string $loanId, string $loanCurrency, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/crypto-loan-fixed/fully-repay',
-            array_merge($options, ['loanId' => $loanId, 'loanCurrency' => $loanCurrency]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/crypto-loan-fixed/fully-repay',
+            array_merge($options, ['loanId' => $loanId, 'loanCurrency' => $loanCurrency])
+        );
     }
 
     /**
@@ -293,8 +314,11 @@ final class CryptoLoanService extends BaseService
      */
     public function renewFixed(string $loanId, array $collateralList, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/crypto-loan-fixed/renew',
-            array_merge($options, ['loanId' => $loanId, 'collateralList' => $collateralList]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/crypto-loan-fixed/renew',
+            array_merge($options, ['loanId' => $loanId, 'collateralList' => $collateralList])
+        );
     }
 
     /**
@@ -312,8 +336,11 @@ final class CryptoLoanService extends BaseService
      */
     public function repayFixedCollateral(int $loanId, string $loanCurrency, string $collateralCoin, string $amount, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/crypto-loan-fixed/repay-collateral',
-            array_merge($options, ['loanId' => $loanId, 'loanCurrency' => $loanCurrency, 'collateralCoin' => $collateralCoin, 'amount' => $amount]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/crypto-loan-fixed/repay-collateral',
+            array_merge($options, ['loanId' => $loanId, 'loanCurrency' => $loanCurrency, 'collateralCoin' => $collateralCoin, 'amount' => $amount])
+        );
     }
 
     /**
@@ -372,8 +399,11 @@ final class CryptoLoanService extends BaseService
      */
     public function borrowFlexible(string $loanCurrency, string $loanAmount, array $collateralList, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/crypto-loan-flexible/borrow',
-            array_merge($options, ['loanCurrency' => $loanCurrency, 'loanAmount' => $loanAmount, 'collateralList' => $collateralList]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/crypto-loan-flexible/borrow',
+            array_merge($options, ['loanCurrency' => $loanCurrency, 'loanAmount' => $loanAmount, 'collateralList' => $collateralList])
+        );
     }
 
     /**
@@ -389,8 +419,11 @@ final class CryptoLoanService extends BaseService
      */
     public function repayFlexible(string $loanCurrency, string $amount, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/crypto-loan-flexible/repay',
-            array_merge($options, ['loanCurrency' => $loanCurrency, 'amount' => $amount]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/crypto-loan-flexible/repay',
+            array_merge($options, ['loanCurrency' => $loanCurrency, 'amount' => $amount])
+        );
     }
 
     /**
@@ -407,7 +440,10 @@ final class CryptoLoanService extends BaseService
      */
     public function repayFlexibleWithCollateral(string $loanCurrency, string $collateralCoin, string $amount, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/crypto-loan-flexible/repay-collateral',
-            array_merge($options, ['loanCurrency' => $loanCurrency, 'collateralCoin' => $collateralCoin, 'amount' => $amount]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/crypto-loan-flexible/repay-collateral',
+            array_merge($options, ['loanCurrency' => $loanCurrency, 'collateralCoin' => $collateralCoin, 'amount' => $amount])
+        );
     }
 }

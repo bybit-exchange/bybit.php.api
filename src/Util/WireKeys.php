@@ -96,7 +96,7 @@ final class WireKeys
         }
         $parts = explode('_', $key);
         $first = array_shift($parts);
-        $tail = implode('', array_map(static fn($p) => ucfirst($p), array_filter($parts, static fn($p) => $p !== '')));
+        $tail = implode('', array_map(static fn ($p) => ucfirst($p), array_filter($parts, static fn ($p) => $p !== '')));
         return $first . $tail;
     }
 }

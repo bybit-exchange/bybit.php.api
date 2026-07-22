@@ -20,8 +20,11 @@ final class PositionService extends BaseService
      */
     public function addReduceMargin(string $category, string $symbol, string $margin, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/position/add-margin',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'margin' => $margin]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/position/add-margin',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'margin' => $margin])
+        );
     }
 
     /**
@@ -37,8 +40,11 @@ final class PositionService extends BaseService
      */
     public function confirmNewRiskLimit(string $category, string $symbol, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/position/confirm-pending-mmr',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/position/confirm-pending-mmr',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol])
+        );
     }
 
     /**
@@ -53,8 +59,11 @@ final class PositionService extends BaseService
      */
     public function getClosedPnl(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/position/closed-pnl',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/position/closed-pnl',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -69,8 +78,11 @@ final class PositionService extends BaseService
      */
     public function getClosePosition(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/position/get-closed-positions',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/position/get-closed-positions',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -99,8 +111,11 @@ final class PositionService extends BaseService
      */
     public function getInfo(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/position/list',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/position/list',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -117,8 +132,11 @@ final class PositionService extends BaseService
      */
     public function movePosition(string $fromUid, string $toUid, array $list_, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/position/move-positions',
-            array_merge($options, ['fromUid' => $fromUid, 'toUid' => $toUid, 'list' => $list_]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/position/move-positions',
+            array_merge($options, ['fromUid' => $fromUid, 'toUid' => $toUid, 'list' => $list_])
+        );
     }
 
     /**
@@ -135,8 +153,11 @@ final class PositionService extends BaseService
      */
     public function setAutoAddMargin(string $category, string $symbol, int $autoAddMargin, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/position/set-auto-add-margin',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'autoAddMargin' => $autoAddMargin]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/position/set-auto-add-margin',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'autoAddMargin' => $autoAddMargin])
+        );
     }
 
     /**
@@ -154,8 +175,11 @@ final class PositionService extends BaseService
      */
     public function setLeverage(string $category, string $symbol, string $buyLeverage, string $sellLeverage, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/position/set-leverage',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'buyLeverage' => $buyLeverage, 'sellLeverage' => $sellLeverage]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/position/set-leverage',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'buyLeverage' => $buyLeverage, 'sellLeverage' => $sellLeverage])
+        );
     }
 
     /**
@@ -173,8 +197,11 @@ final class PositionService extends BaseService
      */
     public function setTradingStop(string $category, string $symbol, string $tpslMode, int $positionIdx, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/position/trading-stop',
-            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'tpslMode' => $tpslMode, 'positionIdx' => $positionIdx]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/position/trading-stop',
+            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'tpslMode' => $tpslMode, 'positionIdx' => $positionIdx])
+        );
     }
 
     /**
@@ -190,7 +217,10 @@ final class PositionService extends BaseService
      */
     public function switchPositionMode(string $category, int $mode, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/position/switch-mode',
-            array_merge($options, ['category' => $category, 'mode' => $mode]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/position/switch-mode',
+            array_merge($options, ['category' => $category, 'mode' => $mode])
+        );
     }
 }

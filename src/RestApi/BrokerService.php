@@ -22,8 +22,11 @@ final class BrokerService extends BaseService
      */
     public function distributeAward(string $accountId, string $awardId, string $specCode, string $amount, string $brokerId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/broker/award/distribute-award',
-            array_merge($options, ['accountId' => $accountId, 'awardId' => $awardId, 'specCode' => $specCode, 'amount' => $amount, 'brokerId' => $brokerId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/broker/award/distribute-award',
+            array_merge($options, ['accountId' => $accountId, 'awardId' => $awardId, 'specCode' => $specCode, 'amount' => $amount, 'brokerId' => $brokerId])
+        );
     }
 
     /**
@@ -38,8 +41,11 @@ final class BrokerService extends BaseService
      */
     public function getAwardInfo(string $id, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/broker/award/info',
-            array_merge($options, ['id' => $id]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/broker/award/info',
+            array_merge($options, ['id' => $id])
+        );
     }
 
     /**
@@ -56,8 +62,11 @@ final class BrokerService extends BaseService
      */
     public function getDistributionRecord(string $accountId, string $awardId, string $specCode, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/broker/award/distribution-record',
-            array_merge($options, ['accountId' => $accountId, 'awardId' => $awardId, 'specCode' => $specCode]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/broker/award/distribution-record',
+            array_merge($options, ['accountId' => $accountId, 'awardId' => $awardId, 'specCode' => $specCode])
+        );
     }
 
     /**

@@ -18,8 +18,11 @@ final class AccountService extends BaseService
      */
     public function batchSetCollateral(array $request, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/account/set-collateral-switch-batch',
-            array_merge($options, ['request' => $request]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/account/set-collateral-switch-batch',
+            array_merge($options, ['request' => $request])
+        );
     }
 
     /**
@@ -48,8 +51,11 @@ final class AccountService extends BaseService
      */
     public function getInstruments(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/account/instruments-info',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/account/instruments-info',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -106,8 +112,11 @@ final class AccountService extends BaseService
      */
     public function getFeeRate(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/account/fee-rate',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/account/fee-rate',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -122,8 +131,11 @@ final class AccountService extends BaseService
      */
     public function getMmpState(string $baseCoin, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/account/mmp-state',
-            array_merge($options, ['baseCoin' => $baseCoin]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/account/mmp-state',
+            array_merge($options, ['baseCoin' => $baseCoin])
+        );
     }
 
     /**
@@ -172,8 +184,11 @@ final class AccountService extends BaseService
      */
     public function getWalletBalance(string $accountType, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/account/wallet-balance',
-            array_merge($options, ['accountType' => $accountType]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/account/wallet-balance',
+            array_merge($options, ['accountType' => $accountType])
+        );
     }
 
     /**
@@ -188,8 +203,11 @@ final class AccountService extends BaseService
      */
     public function getTransferableAmount(string $coinName, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/account/withdrawal',
-            array_merge($options, ['coinName' => $coinName]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/account/withdrawal',
+            array_merge($options, ['coinName' => $coinName])
+        );
     }
 
     /**
@@ -219,8 +237,11 @@ final class AccountService extends BaseService
      */
     public function manualBorrow(string $coin, string $amount, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/account/borrow',
-            array_merge($options, ['coin' => $coin, 'amount' => $amount]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/account/borrow',
+            array_merge($options, ['coin' => $coin, 'amount' => $amount])
+        );
     }
 
     /**
@@ -249,8 +270,11 @@ final class AccountService extends BaseService
      */
     public function noConvertRepay(string $coin, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/account/no-convert-repay',
-            array_merge($options, ['coin' => $coin]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/account/no-convert-repay',
+            array_merge($options, ['coin' => $coin])
+        );
     }
 
     /**
@@ -279,8 +303,11 @@ final class AccountService extends BaseService
      */
     public function resetMmp(string $baseCoin, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/account/mmp-reset',
-            array_merge($options, ['baseCoin' => $baseCoin]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/account/mmp-reset',
+            array_merge($options, ['baseCoin' => $baseCoin])
+        );
     }
 
     /**
@@ -296,8 +323,11 @@ final class AccountService extends BaseService
      */
     public function setCollateralCoin(string $coin, string $collateralSwitch, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/account/set-collateral-switch',
-            array_merge($options, ['coin' => $coin, 'collateralSwitch' => $collateralSwitch]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/account/set-collateral-switch',
+            array_merge($options, ['coin' => $coin, 'collateralSwitch' => $collateralSwitch])
+        );
     }
 
     /**
@@ -312,8 +342,11 @@ final class AccountService extends BaseService
      */
     public function setMarginMode(string $setMarginMode, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/account/set-margin-mode',
-            array_merge($options, ['setMarginMode' => $setMarginMode]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/account/set-margin-mode',
+            array_merge($options, ['setMarginMode' => $setMarginMode])
+        );
     }
 
     /**
@@ -332,8 +365,11 @@ final class AccountService extends BaseService
      */
     public function setMmp(string $baseCoin, string $window, string $frozenPeriod, string $qtyLimit, string $deltaLimit, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/account/mmp-modify',
-            array_merge($options, ['baseCoin' => $baseCoin, 'window' => $window, 'frozenPeriod' => $frozenPeriod, 'qtyLimit' => $qtyLimit, 'deltaLimit' => $deltaLimit]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/account/mmp-modify',
+            array_merge($options, ['baseCoin' => $baseCoin, 'window' => $window, 'frozenPeriod' => $frozenPeriod, 'qtyLimit' => $qtyLimit, 'deltaLimit' => $deltaLimit])
+        );
     }
 
     /**
@@ -349,8 +385,11 @@ final class AccountService extends BaseService
      */
     public function setPriceLimit(string $category, bool $modifyEnable, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/account/set-limit-px-action',
-            array_merge($options, ['category' => $category, 'modifyEnable' => $modifyEnable]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/account/set-limit-px-action',
+            array_merge($options, ['category' => $category, 'modifyEnable' => $modifyEnable])
+        );
     }
 
     /**
@@ -365,8 +404,11 @@ final class AccountService extends BaseService
      */
     public function setSpotHedging(string $setHedgingMode, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/account/set-hedging-mode',
-            array_merge($options, ['setHedgingMode' => $setHedgingMode]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/account/set-hedging-mode',
+            array_merge($options, ['setHedgingMode' => $setHedgingMode])
+        );
     }
 
     /**

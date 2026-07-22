@@ -20,8 +20,11 @@ final class UserService extends BaseService
      */
     public function createSubApiKey(int $subuid, int $readOnly_, array $permissions, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/user/create-sub-api',
-            array_merge($options, ['subuid' => $subuid, 'readOnly' => $readOnly_, 'permissions' => $permissions]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/user/create-sub-api',
+            array_merge($options, ['subuid' => $subuid, 'readOnly' => $readOnly_, 'permissions' => $permissions])
+        );
     }
 
     /**
@@ -37,8 +40,11 @@ final class UserService extends BaseService
      */
     public function createSubMember(string $username, int $memberType, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/user/create-sub-member',
-            array_merge($options, ['username' => $username, 'memberType' => $memberType]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/user/create-sub-member',
+            array_merge($options, ['username' => $username, 'memberType' => $memberType])
+        );
     }
 
     /**
@@ -67,8 +73,11 @@ final class UserService extends BaseService
      */
     public function deleteSubApiKey(int $subuid, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/user/delete-sub-api',
-            array_merge($options, ['subuid' => $subuid]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/user/delete-sub-api',
+            array_merge($options, ['subuid' => $subuid])
+        );
     }
 
     /**
@@ -83,8 +92,11 @@ final class UserService extends BaseService
      */
     public function deleteSubMember(int $subuid, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/user/del-submember',
-            array_merge($options, ['subuid' => $subuid]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/user/del-submember',
+            array_merge($options, ['subuid' => $subuid])
+        );
     }
 
     /**
@@ -100,8 +112,11 @@ final class UserService extends BaseService
      */
     public function frozenSubMember(int $subuid, int $frozen, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/user/frozen-sub-member',
-            array_merge($options, ['subuid' => $subuid, 'frozen' => $frozen]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/user/frozen-sub-member',
+            array_merge($options, ['subuid' => $subuid, 'frozen' => $frozen])
+        );
     }
 
     /**
@@ -116,8 +131,11 @@ final class UserService extends BaseService
      */
     public function getAffiliateCustomOpenInfo(string $uid, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/user/aff-customer-info',
-            array_merge($options, ['uid' => $uid]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/user/aff-customer-info',
+            array_merge($options, ['uid' => $uid])
+        );
     }
 
     /**
@@ -146,8 +164,11 @@ final class UserService extends BaseService
      */
     public function listSubApiKeys(int $subuid, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/user/sub-apikeys',
-            array_merge($options, ['subuid' => $subuid]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/user/sub-apikeys',
+            array_merge($options, ['subuid' => $subuid])
+        );
     }
 
     /**
@@ -233,8 +254,11 @@ final class UserService extends BaseService
      */
     public function signAgreement(int $category, bool $agree, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/user/agreement',
-            array_merge($options, ['category' => $category, 'agree' => $agree]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/user/agreement',
+            array_merge($options, ['category' => $category, 'agree' => $agree])
+        );
     }
 
     /**
@@ -264,7 +288,10 @@ final class UserService extends BaseService
      */
     public function updateSubApiKey(int $subuid, int $readOnly_, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/user/update-sub-api',
-            array_merge($options, ['subuid' => $subuid, 'readOnly' => $readOnly_]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/user/update-sub-api',
+            array_merge($options, ['subuid' => $subuid, 'readOnly' => $readOnly_])
+        );
     }
 }

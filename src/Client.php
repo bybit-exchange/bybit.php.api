@@ -19,6 +19,7 @@ use Bybit\RestApi\RfqService;
 use Bybit\RestApi\SpotMarginService;
 use Bybit\RestApi\TradeService;
 use Bybit\RestApi\UserService;
+
 // gen-sdk-php:service-uses:end
 
 final class Client

@@ -19,8 +19,11 @@ final class EarnService extends BaseService
      */
     public function addLiquidity(string $productId, string $orderLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/liquidity-mining/add-liquidity',
-            array_merge($options, ['productId' => $productId, 'orderLinkId' => $orderLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/liquidity-mining/add-liquidity',
+            array_merge($options, ['productId' => $productId, 'orderLinkId' => $orderLinkId])
+        );
     }
 
     /**
@@ -39,8 +42,11 @@ final class EarnService extends BaseService
      */
     public function addMargin(string $productId, string $orderLinkId, string $positionId, string $amount, string $quoteAccountType, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/liquidity-mining/add-margin',
-            array_merge($options, ['productId' => $productId, 'orderLinkId' => $orderLinkId, 'positionId' => $positionId, 'amount' => $amount, 'quoteAccountType' => $quoteAccountType]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/liquidity-mining/add-margin',
+            array_merge($options, ['productId' => $productId, 'orderLinkId' => $orderLinkId, 'positionId' => $positionId, 'amount' => $amount, 'quoteAccountType' => $quoteAccountType])
+        );
     }
 
     /**
@@ -55,8 +61,11 @@ final class EarnService extends BaseService
      */
     public function claimLiquidityInterest(string $productId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/liquidity-mining/claim-interest',
-            array_merge($options, ['productId' => $productId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/liquidity-mining/claim-interest',
+            array_merge($options, ['productId' => $productId])
+        );
     }
 
     /**
@@ -71,8 +80,11 @@ final class EarnService extends BaseService
      */
     public function getAdvanceEarnOrder(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/advance/order',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/advance/order',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -87,8 +99,11 @@ final class EarnService extends BaseService
      */
     public function getAdvanceEarnPosition(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/advance/position',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/advance/position',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -103,8 +118,11 @@ final class EarnService extends BaseService
      */
     public function getAdvanceEarnProduct(string $category, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/earn/advance/product',
-            array_merge($options, ['category' => $category]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/earn/advance/product',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -119,8 +137,11 @@ final class EarnService extends BaseService
      */
     public function getAdvanceEarnProductExtraInfo(string $category, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/earn/advance/product-extra-info',
-            array_merge($options, ['category' => $category]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/earn/advance/product-extra-info',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -138,8 +159,11 @@ final class EarnService extends BaseService
      */
     public function getDoubleWinLeverage(int $productId, string $initialPrice, string $lowerPrice, string $upperPrice, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/advance/double-win-leverage',
-            array_merge($options, ['productId' => $productId, 'initialPrice' => $initialPrice, 'lowerPrice' => $lowerPrice, 'upperPrice' => $upperPrice]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/advance/double-win-leverage',
+            array_merge($options, ['productId' => $productId, 'initialPrice' => $initialPrice, 'lowerPrice' => $lowerPrice, 'upperPrice' => $upperPrice])
+        );
     }
 
     /**
@@ -157,8 +181,11 @@ final class EarnService extends BaseService
      */
     public function getAprHistory(string $category, string $productId, int $startTime, int $endTime, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/earn/apr-history',
-            array_merge($options, ['category' => $category, 'productId' => $productId, 'startTime' => $startTime, 'endTime' => $endTime]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/earn/apr-history',
+            array_merge($options, ['category' => $category, 'productId' => $productId, 'startTime' => $startTime, 'endTime' => $endTime])
+        );
     }
 
     /**
@@ -173,8 +200,11 @@ final class EarnService extends BaseService
      */
     public function getHourlyYieldHistory(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/hourly-yield',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/hourly-yield',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -189,8 +219,11 @@ final class EarnService extends BaseService
      */
     public function getOrderHistory(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/order',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/order',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -205,8 +238,11 @@ final class EarnService extends BaseService
      */
     public function getPosition(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/position',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/position',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -221,8 +257,11 @@ final class EarnService extends BaseService
      */
     public function getProduct(string $category, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/earn/product',
-            array_merge($options, ['category' => $category]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/earn/product',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -237,8 +276,11 @@ final class EarnService extends BaseService
      */
     public function getYieldHistory(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/yield',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/yield',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -309,8 +351,11 @@ final class EarnService extends BaseService
      */
     public function getHoldToEarnYieldHistory(int $limit, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/hold-to-earn/yield-history',
-            array_merge($options, ['limit' => $limit]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/hold-to-earn/yield-history',
+            array_merge($options, ['limit' => $limit])
+        );
     }
 
     /**
@@ -395,8 +440,11 @@ final class EarnService extends BaseService
      */
     public function getRwaNavChart(int $productId, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/earn/rwa/nav-chart',
-            array_merge($options, ['productId' => $productId]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/earn/rwa/nav-chart',
+            array_merge($options, ['productId' => $productId])
+        );
     }
 
     /**
@@ -454,8 +502,11 @@ final class EarnService extends BaseService
      */
     public function getSmartLeverageRedeemEstAmountList(string $category, string $positionIds, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/advance/get-redeem-est-amount-list',
-            array_merge($options, ['category' => $category, 'positionIds' => $positionIds]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/advance/get-redeem-est-amount-list',
+            array_merge($options, ['category' => $category, 'positionIds' => $positionIds])
+        );
     }
 
     /**
@@ -470,8 +521,11 @@ final class EarnService extends BaseService
      */
     public function getTokenDailyYield(string $coin, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/token/yield',
-            array_merge($options, ['coin' => $coin]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/token/yield',
+            array_merge($options, ['coin' => $coin])
+        );
     }
 
     /**
@@ -487,8 +541,11 @@ final class EarnService extends BaseService
      */
     public function getTokenHistoricalApr(string $coin, int $range, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/earn/token/history-apr',
-            array_merge($options, ['coin' => $coin, 'range' => $range]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/earn/token/history-apr',
+            array_merge($options, ['coin' => $coin, 'range' => $range])
+        );
     }
 
     /**
@@ -503,8 +560,11 @@ final class EarnService extends BaseService
      */
     public function getTokenHourlyYield(string $coin, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/token/hourly-yield',
-            array_merge($options, ['coin' => $coin]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/token/hourly-yield',
+            array_merge($options, ['coin' => $coin])
+        );
     }
 
     /**
@@ -519,8 +579,11 @@ final class EarnService extends BaseService
      */
     public function getTokenOrderList(string $coin, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/token/order',
-            array_merge($options, ['coin' => $coin]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/token/order',
+            array_merge($options, ['coin' => $coin])
+        );
     }
 
     /**
@@ -535,8 +598,11 @@ final class EarnService extends BaseService
      */
     public function getTokenPosition(string $coin, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/token/position',
-            array_merge($options, ['coin' => $coin]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/token/position',
+            array_merge($options, ['coin' => $coin])
+        );
     }
 
     /**
@@ -551,8 +617,11 @@ final class EarnService extends BaseService
      */
     public function getTokenProduct(string $coin, array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/earn/token/product',
-            array_merge($options, ['coin' => $coin]));
+        return $this->session->publicRequest(
+            'GET',
+            '/v5/earn/token/product',
+            array_merge($options, ['coin' => $coin])
+        );
     }
 
     /**
@@ -567,8 +636,11 @@ final class EarnService extends BaseService
      */
     public function listCoupons(string $category, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/coupons',
-            array_merge($options, ['category' => $category]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/coupons',
+            array_merge($options, ['category' => $category])
+        );
     }
 
     /**
@@ -586,8 +658,11 @@ final class EarnService extends BaseService
      */
     public function modifyEarnPosition(string $category, int $productId, int $positionId, int $autoReinvest, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/position/modify',
-            array_merge($options, ['category' => $category, 'productId' => $productId, 'positionId' => $positionId, 'autoReinvest' => $autoReinvest]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/position/modify',
+            array_merge($options, ['category' => $category, 'productId' => $productId, 'positionId' => $positionId, 'autoReinvest' => $autoReinvest])
+        );
     }
 
     /**
@@ -608,8 +683,11 @@ final class EarnService extends BaseService
      */
     public function placeAdvanceEarnOrder(string $category, int $productId, string $orderType, string $amount, string $accountType, string $coin, string $orderLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/advance/place-order',
-            array_merge($options, ['category' => $category, 'productId' => $productId, 'orderType' => $orderType, 'amount' => $amount, 'accountType' => $accountType, 'coin' => $coin, 'orderLinkId' => $orderLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/advance/place-order',
+            array_merge($options, ['category' => $category, 'productId' => $productId, 'orderType' => $orderType, 'amount' => $amount, 'accountType' => $accountType, 'coin' => $coin, 'orderLinkId' => $orderLinkId])
+        );
     }
 
     /**
@@ -630,8 +708,11 @@ final class EarnService extends BaseService
      */
     public function placeOrder(string $category, string $orderType, string $accountType, string $amount, string $coin, string $productId, string $orderLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/place-order',
-            array_merge($options, ['category' => $category, 'orderType' => $orderType, 'accountType' => $accountType, 'amount' => $amount, 'coin' => $coin, 'productId' => $productId, 'orderLinkId' => $orderLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/place-order',
+            array_merge($options, ['category' => $category, 'orderType' => $orderType, 'accountType' => $accountType, 'amount' => $amount, 'coin' => $coin, 'productId' => $productId, 'orderLinkId' => $orderLinkId])
+        );
     }
 
     /**
@@ -651,8 +732,11 @@ final class EarnService extends BaseService
      */
     public function placeFixedTermOrder(string $productId, string $category, string $coin, string $amount, string $accountType, string $orderLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/fixed-term/place-order',
-            array_merge($options, ['productId' => $productId, 'category' => $category, 'coin' => $coin, 'amount' => $amount, 'accountType' => $accountType, 'orderLinkId' => $orderLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/fixed-term/place-order',
+            array_merge($options, ['productId' => $productId, 'category' => $category, 'coin' => $coin, 'amount' => $amount, 'accountType' => $accountType, 'orderLinkId' => $orderLinkId])
+        );
     }
 
     /**
@@ -670,8 +754,11 @@ final class EarnService extends BaseService
      */
     public function placeRwaOrder(int $productId, string $orderType, string $coin, string $orderLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/rwa/place-order',
-            array_merge($options, ['productId' => $productId, 'orderType' => $orderType, 'coin' => $coin, 'orderLinkId' => $orderLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/rwa/place-order',
+            array_merge($options, ['productId' => $productId, 'orderType' => $orderType, 'coin' => $coin, 'orderLinkId' => $orderLinkId])
+        );
     }
 
     /**
@@ -690,8 +777,11 @@ final class EarnService extends BaseService
      */
     public function placeTokenOrder(string $coin, string $orderLinkId, string $orderType, string $amount, string $accountType, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/token/place-order',
-            array_merge($options, ['coin' => $coin, 'orderLinkId' => $orderLinkId, 'orderType' => $orderType, 'amount' => $amount, 'accountType' => $accountType]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/token/place-order',
+            array_merge($options, ['coin' => $coin, 'orderLinkId' => $orderLinkId, 'orderType' => $orderType, 'amount' => $amount, 'accountType' => $accountType])
+        );
     }
 
     /**
@@ -706,8 +796,11 @@ final class EarnService extends BaseService
      */
     public function pwmAssetTrend(string $planId, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/pwm/investment-plan/asset-trend',
-            array_merge($options, ['planId' => $planId]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/pwm/investment-plan/asset-trend',
+            array_merge($options, ['planId' => $planId])
+        );
     }
 
     /**
@@ -723,8 +816,11 @@ final class EarnService extends BaseService
      */
     public function pwmClaim(string $planId, string $orderLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/pwm/investment-plan/claim',
-            array_merge($options, ['planId' => $planId, 'orderLinkId' => $orderLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/pwm/investment-plan/claim',
+            array_merge($options, ['planId' => $planId, 'orderLinkId' => $orderLinkId])
+        );
     }
 
     /**
@@ -740,8 +836,11 @@ final class EarnService extends BaseService
      */
     public function pwmCreateCustomPlan(array $products, string $orderLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/pwm/customize-plan/create',
-            array_merge($options, ['products' => $products, 'orderLinkId' => $orderLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/pwm/customize-plan/create',
+            array_merge($options, ['products' => $products, 'orderLinkId' => $orderLinkId])
+        );
     }
 
     /**
@@ -756,8 +855,11 @@ final class EarnService extends BaseService
      */
     public function pwmFundNav(string $fundId, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/pwm/investment-plan/fund-nav',
-            array_merge($options, ['fundId' => $fundId]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/pwm/investment-plan/fund-nav',
+            array_merge($options, ['fundId' => $fundId])
+        );
     }
 
     /**
@@ -776,8 +878,11 @@ final class EarnService extends BaseService
      */
     public function pwmFundTransfer(string $transferId, int $fromUserId, int $toUserId, string $amount, string $coin, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/pwm/fund-transfer',
-            array_merge($options, ['transferId' => $transferId, 'fromUserId' => $fromUserId, 'toUserId' => $toUserId, 'amount' => $amount, 'coin' => $coin]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/pwm/fund-transfer',
+            array_merge($options, ['transferId' => $transferId, 'fromUserId' => $fromUserId, 'toUserId' => $toUserId, 'amount' => $amount, 'coin' => $coin])
+        );
     }
 
     /**
@@ -792,8 +897,11 @@ final class EarnService extends BaseService
      */
     public function pwmGetNewPlanDetail(string $planId, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/pwm/investment-plan/new-plan',
-            array_merge($options, ['planId' => $planId]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/pwm/investment-plan/new-plan',
+            array_merge($options, ['planId' => $planId])
+        );
     }
 
     /**
@@ -808,8 +916,11 @@ final class EarnService extends BaseService
      */
     public function pwmGetPlanDetail(string $planId, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/earn/pwm/investment-plan/detail',
-            array_merge($options, ['planId' => $planId]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/earn/pwm/investment-plan/detail',
+            array_merge($options, ['planId' => $planId])
+        );
     }
 
     /**
@@ -828,8 +939,11 @@ final class EarnService extends BaseService
      */
     public function pwmInstCreateFund(string $fundName, string $coin, string $profitShareRate, string $managementFeeRate, string $reqLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/pwm/asset-manager/create-fund',
-            array_merge($options, ['fundName' => $fundName, 'coin' => $coin, 'profitShareRate' => $profitShareRate, 'managementFeeRate' => $managementFeeRate, 'reqLinkId' => $reqLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/pwm/asset-manager/create-fund',
+            array_merge($options, ['fundName' => $fundName, 'coin' => $coin, 'profitShareRate' => $profitShareRate, 'managementFeeRate' => $managementFeeRate, 'reqLinkId' => $reqLinkId])
+        );
     }
 
     /**
@@ -848,8 +962,11 @@ final class EarnService extends BaseService
      */
     public function pwmInstCreateInvestmentPlan(string $accountUid, string $planName, string $planType, array $investmentDistribution, string $reqLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/pwm/asset-manager/create-investment-plan',
-            array_merge($options, ['accountUid' => $accountUid, 'planName' => $planName, 'planType' => $planType, 'investmentDistribution' => $investmentDistribution, 'reqLinkId' => $reqLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/pwm/asset-manager/create-investment-plan',
+            array_merge($options, ['accountUid' => $accountUid, 'planName' => $planName, 'planType' => $planType, 'investmentDistribution' => $investmentDistribution, 'reqLinkId' => $reqLinkId])
+        );
     }
 
     /**
@@ -865,8 +982,11 @@ final class EarnService extends BaseService
      */
     public function pwmInstCreateSubAccount(string $fundId, string $reqLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/pwm/asset-manager/create-sub-account',
-            array_merge($options, ['fundId' => $fundId, 'reqLinkId' => $reqLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/pwm/asset-manager/create-sub-account',
+            array_merge($options, ['fundId' => $fundId, 'reqLinkId' => $reqLinkId])
+        );
     }
 
     /**
@@ -924,8 +1044,11 @@ final class EarnService extends BaseService
      */
     public function pwmInstManageInvestmentPlan(string $planId, string $reqLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/pwm/asset-manager/manage-investment-plan',
-            array_merge($options, ['planId' => $planId, 'reqLinkId' => $reqLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/pwm/asset-manager/manage-investment-plan',
+            array_merge($options, ['planId' => $planId, 'reqLinkId' => $reqLinkId])
+        );
     }
 
     /**
@@ -942,8 +1065,11 @@ final class EarnService extends BaseService
      */
     public function pwmInstManageOrder(string $orderId, string $action, string $reqLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/pwm/asset-manager/manage-order',
-            array_merge($options, ['orderId' => $orderId, 'action' => $action, 'reqLinkId' => $reqLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/pwm/asset-manager/manage-order',
+            array_merge($options, ['orderId' => $orderId, 'action' => $action, 'reqLinkId' => $reqLinkId])
+        );
     }
 
     /**
@@ -959,8 +1085,11 @@ final class EarnService extends BaseService
      */
     public function pwmInstSettleProfit(string $fundId, string $reqLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/pwm/asset-manager/settle-profit',
-            array_merge($options, ['fundId' => $fundId, 'reqLinkId' => $reqLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/pwm/asset-manager/settle-profit',
+            array_merge($options, ['fundId' => $fundId, 'reqLinkId' => $reqLinkId])
+        );
     }
 
     /**
@@ -979,8 +1108,11 @@ final class EarnService extends BaseService
      */
     public function pwmInvestMore(string $planId, string $category, string $productId, string $amount, string $orderLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/pwm/investment-plan/invest-more',
-            array_merge($options, ['planId' => $planId, 'category' => $category, 'productId' => $productId, 'amount' => $amount, 'orderLinkId' => $orderLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/pwm/investment-plan/invest-more',
+            array_merge($options, ['planId' => $planId, 'category' => $category, 'productId' => $productId, 'amount' => $amount, 'orderLinkId' => $orderLinkId])
+        );
     }
 
     /**
@@ -1054,8 +1186,11 @@ final class EarnService extends BaseService
      */
     public function pwmRedeem(string $planId, string $category, string $productId, string $orderLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/pwm/investment-plan/redeem',
-            array_merge($options, ['planId' => $planId, 'category' => $category, 'productId' => $productId, 'orderLinkId' => $orderLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/pwm/investment-plan/redeem',
+            array_merge($options, ['planId' => $planId, 'category' => $category, 'productId' => $productId, 'orderLinkId' => $orderLinkId])
+        );
     }
 
     /**
@@ -1071,8 +1206,11 @@ final class EarnService extends BaseService
      */
     public function pwmSubscribe(string $planId, string $orderLinkId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/pwm/investment-plan/subscribe',
-            array_merge($options, ['planId' => $planId, 'orderLinkId' => $orderLinkId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/pwm/investment-plan/subscribe',
+            array_merge($options, ['planId' => $planId, 'orderLinkId' => $orderLinkId])
+        );
     }
 
     /**
@@ -1089,8 +1227,11 @@ final class EarnService extends BaseService
      */
     public function redeemFixedTerm(string $productId, string $category, string $positionId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/fixed-term/redeem',
-            array_merge($options, ['productId' => $productId, 'category' => $category, 'positionId' => $positionId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/fixed-term/redeem',
+            array_merge($options, ['productId' => $productId, 'category' => $category, 'positionId' => $positionId])
+        );
     }
 
     /**
@@ -1107,8 +1248,11 @@ final class EarnService extends BaseService
      */
     public function reinvestLiquidity(string $productId, string $orderLinkId, string $positionId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/liquidity-mining/reinvest',
-            array_merge($options, ['productId' => $productId, 'orderLinkId' => $orderLinkId, 'positionId' => $positionId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/liquidity-mining/reinvest',
+            array_merge($options, ['productId' => $productId, 'orderLinkId' => $orderLinkId, 'positionId' => $positionId])
+        );
     }
 
     /**
@@ -1125,8 +1269,11 @@ final class EarnService extends BaseService
      */
     public function removeLiquidity(string $productId, string $orderLinkId, string $positionId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/earn/liquidity-mining/remove-liquidity',
-            array_merge($options, ['productId' => $productId, 'orderLinkId' => $orderLinkId, 'positionId' => $positionId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/liquidity-mining/remove-liquidity',
+            array_merge($options, ['productId' => $productId, 'orderLinkId' => $orderLinkId, 'positionId' => $positionId])
+        );
     }
 
     /**

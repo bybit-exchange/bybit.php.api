@@ -19,8 +19,11 @@ final class BotService extends BaseService
      */
     public function closeDcaBot(int $botId, int $closeMode, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/dca/close-bot',
-            array_merge($options, ['bot_id' => $botId, 'close_mode' => $closeMode]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/dca/close-bot',
+            array_merge($options, ['bot_id' => $botId, 'close_mode' => $closeMode])
+        );
     }
 
     /**
@@ -35,8 +38,11 @@ final class BotService extends BaseService
      */
     public function createDcaBot(array $parameters, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/dca/create-bot',
-            array_merge($options, ['parameters' => $parameters]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/dca/create-bot',
+            array_merge($options, ['parameters' => $parameters])
+        );
     }
 
     /**
@@ -51,8 +57,11 @@ final class BotService extends BaseService
      */
     public function closeComboBot(int $botId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/fcombobot/close',
-            array_merge($options, ['bot_id' => $botId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/fcombobot/close',
+            array_merge($options, ['bot_id' => $botId])
+        );
     }
 
     /**
@@ -70,8 +79,11 @@ final class BotService extends BaseService
      */
     public function createComboBot(string $leverage, string $initMargin, int $adjustPositionMode, array $symbolSettings, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/fcombobot/create',
-            array_merge($options, ['leverage' => $leverage, 'init_margin' => $initMargin, 'adjust_position_mode' => $adjustPositionMode, 'symbol_settings' => $symbolSettings]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/fcombobot/create',
+            array_merge($options, ['leverage' => $leverage, 'init_margin' => $initMargin, 'adjust_position_mode' => $adjustPositionMode, 'symbol_settings' => $symbolSettings])
+        );
     }
 
     /**
@@ -86,8 +98,11 @@ final class BotService extends BaseService
      */
     public function getComboDetail(int $botId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/fcombobot/detail',
-            array_merge($options, ['bot_id' => $botId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/fcombobot/detail',
+            array_merge($options, ['bot_id' => $botId])
+        );
     }
 
     /**
@@ -105,8 +120,11 @@ final class BotService extends BaseService
      */
     public function getComboLimit(string $leverage, string $initMargin, int $adjustPositionMode, array $symbolSettings, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/fcombobot/getlimit',
-            array_merge($options, ['leverage' => $leverage, 'init_margin' => $initMargin, 'adjust_position_mode' => $adjustPositionMode, 'symbol_settings' => $symbolSettings]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/fcombobot/getlimit',
+            array_merge($options, ['leverage' => $leverage, 'init_margin' => $initMargin, 'adjust_position_mode' => $adjustPositionMode, 'symbol_settings' => $symbolSettings])
+        );
     }
 
     /**
@@ -121,8 +139,11 @@ final class BotService extends BaseService
      */
     public function closeFuturesGridBot(int $botId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/fgridbot/close',
-            array_merge($options, ['bot_id' => $botId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/fgridbot/close',
+            array_merge($options, ['bot_id' => $botId])
+        );
     }
 
     /**
@@ -144,8 +165,11 @@ final class BotService extends BaseService
      */
     public function createFuturesGridBot(string $symbol, int $gridMode, string $minPrice, string $maxPrice, int $cellNumber, string $leverage, int $gridType, string $totalInvestment, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/fgridbot/create',
-            array_merge($options, ['symbol' => $symbol, 'grid_mode' => $gridMode, 'min_price' => $minPrice, 'max_price' => $maxPrice, 'cell_number' => $cellNumber, 'leverage' => $leverage, 'grid_type' => $gridType, 'total_investment' => $totalInvestment]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/fgridbot/create',
+            array_merge($options, ['symbol' => $symbol, 'grid_mode' => $gridMode, 'min_price' => $minPrice, 'max_price' => $maxPrice, 'cell_number' => $cellNumber, 'leverage' => $leverage, 'grid_type' => $gridType, 'total_investment' => $totalInvestment])
+        );
     }
 
     /**
@@ -160,8 +184,11 @@ final class BotService extends BaseService
      */
     public function getFuturesGridDetail(int $botId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/fgridbot/detail',
-            array_merge($options, ['bot_id' => $botId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/fgridbot/detail',
+            array_merge($options, ['bot_id' => $botId])
+        );
     }
 
     /**
@@ -182,8 +209,11 @@ final class BotService extends BaseService
      */
     public function validateFuturesGridInput(string $symbol, int $cellNumber, string $minPrice, string $maxPrice, string $leverage, int $gridType, int $gridMode, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/fgridbot/validate',
-            array_merge($options, ['symbol' => $symbol, 'cell_number' => $cellNumber, 'min_price' => $minPrice, 'max_price' => $maxPrice, 'leverage' => $leverage, 'grid_type' => $gridType, 'grid_mode' => $gridMode]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/fgridbot/validate',
+            array_merge($options, ['symbol' => $symbol, 'cell_number' => $cellNumber, 'min_price' => $minPrice, 'max_price' => $maxPrice, 'leverage' => $leverage, 'grid_type' => $gridType, 'grid_mode' => $gridMode])
+        );
     }
 
     /**
@@ -198,8 +228,11 @@ final class BotService extends BaseService
      */
     public function closeFuturesMartingaleBot(int $botId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/fmartingalebot/close',
-            array_merge($options, ['bot_id' => $botId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/fmartingalebot/close',
+            array_merge($options, ['bot_id' => $botId])
+        );
     }
 
     /**
@@ -221,8 +254,11 @@ final class BotService extends BaseService
      */
     public function createFuturesMartingaleBot(string $symbol, string $martingaleMode, string $leverage, string $priceFloatPercent, string $addPositionPercent, int $addPositionNum, string $initMargin, string $roundTpPercent, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/fmartingalebot/create',
-            array_merge($options, ['symbol' => $symbol, 'martingale_mode' => $martingaleMode, 'leverage' => $leverage, 'price_float_percent' => $priceFloatPercent, 'add_position_percent' => $addPositionPercent, 'add_position_num' => $addPositionNum, 'init_margin' => $initMargin, 'round_tp_percent' => $roundTpPercent]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/fmartingalebot/create',
+            array_merge($options, ['symbol' => $symbol, 'martingale_mode' => $martingaleMode, 'leverage' => $leverage, 'price_float_percent' => $priceFloatPercent, 'add_position_percent' => $addPositionPercent, 'add_position_num' => $addPositionNum, 'init_margin' => $initMargin, 'round_tp_percent' => $roundTpPercent])
+        );
     }
 
     /**
@@ -237,8 +273,11 @@ final class BotService extends BaseService
      */
     public function getFuturesMartingaleDetail(int $botId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/fmartingalebot/detail',
-            array_merge($options, ['bot_id' => $botId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/fmartingalebot/detail',
+            array_merge($options, ['bot_id' => $botId])
+        );
     }
 
     /**
@@ -255,8 +294,11 @@ final class BotService extends BaseService
      */
     public function getFuturesMartingaleLimit(string $symbol, string $martingaleMode, string $leverage, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/fmartingalebot/getlimit',
-            array_merge($options, ['symbol' => $symbol, 'martingale_mode' => $martingaleMode, 'leverage' => $leverage]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/fmartingalebot/getlimit',
+            array_merge($options, ['symbol' => $symbol, 'martingale_mode' => $martingaleMode, 'leverage' => $leverage])
+        );
     }
 
     /**
@@ -272,8 +314,11 @@ final class BotService extends BaseService
      */
     public function closeGridBot(int $gridId, int $closeMode, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/grid/close-grid',
-            array_merge($options, ['grid_id' => $gridId, 'close_mode' => $closeMode]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/grid/close-grid',
+            array_merge($options, ['grid_id' => $gridId, 'close_mode' => $closeMode])
+        );
     }
 
     /**
@@ -292,8 +337,11 @@ final class BotService extends BaseService
      */
     public function createGridBot(string $symbol, string $maxPrice, string $minPrice, string $totalInvestment, int $cellNumber, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/grid/create-grid',
-            array_merge($options, ['symbol' => $symbol, 'max_price' => $maxPrice, 'min_price' => $minPrice, 'total_investment' => $totalInvestment, 'cell_number' => $cellNumber]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/grid/create-grid',
+            array_merge($options, ['symbol' => $symbol, 'max_price' => $maxPrice, 'min_price' => $minPrice, 'total_investment' => $totalInvestment, 'cell_number' => $cellNumber])
+        );
     }
 
     /**
@@ -308,8 +356,11 @@ final class BotService extends BaseService
      */
     public function queryGridDetail(int $gridId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/grid/query-grid-detail',
-            array_merge($options, ['grid_id' => $gridId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/grid/query-grid-detail',
+            array_merge($options, ['grid_id' => $gridId])
+        );
     }
 
     /**
@@ -328,7 +379,10 @@ final class BotService extends BaseService
      */
     public function validateGridInput(string $symbol, int $cellNumber, string $minPrice, string $maxPrice, string $totalInvestment, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/grid/validate-input',
-            array_merge($options, ['symbol' => $symbol, 'cell_number' => $cellNumber, 'min_price' => $minPrice, 'max_price' => $maxPrice, 'total_investment' => $totalInvestment]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/grid/validate-input',
+            array_merge($options, ['symbol' => $symbol, 'cell_number' => $cellNumber, 'min_price' => $minPrice, 'max_price' => $maxPrice, 'total_investment' => $totalInvestment])
+        );
     }
 }

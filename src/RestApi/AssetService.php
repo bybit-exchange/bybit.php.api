@@ -18,8 +18,11 @@ final class AssetService extends BaseService
      */
     public function getCoinBalance(string $accountType, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/asset/transfer/query-account-coins-balance',
-            array_merge($options, ['accountType' => $accountType]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/asset/transfer/query-account-coins-balance',
+            array_merge($options, ['accountType' => $accountType])
+        );
     }
 
     /**

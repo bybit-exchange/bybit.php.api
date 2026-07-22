@@ -34,8 +34,11 @@ final class P2pService extends BaseService
      */
     public function getAds(string $tokenId, string $currencyId, string $side, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/p2p/item/online',
-            array_merge($options, ['tokenId' => $tokenId, 'currencyId' => $currencyId, 'side' => $side]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/p2p/item/online',
+            array_merge($options, ['tokenId' => $tokenId, 'currencyId' => $currencyId, 'side' => $side])
+        );
     }
 
     /**
@@ -51,8 +54,11 @@ final class P2pService extends BaseService
      */
     public function getAllOrders(int $page, int $size, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/p2p/order/simplifyList',
-            array_merge($options, ['page' => $page, 'size' => $size]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/p2p/order/simplifyList',
+            array_merge($options, ['page' => $page, 'size' => $size])
+        );
     }
 
     /**
@@ -68,8 +74,11 @@ final class P2pService extends BaseService
      */
     public function getChatMessages(string $orderId, string $size, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/p2p/order/message/listpage',
-            array_merge($options, ['orderId' => $orderId, 'size' => $size]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/p2p/order/message/listpage',
+            array_merge($options, ['orderId' => $orderId, 'size' => $size])
+        );
     }
 
     /**
@@ -98,8 +107,11 @@ final class P2pService extends BaseService
      */
     public function getMyAdDetails(string $itemId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/p2p/item/info',
-            array_merge($options, ['itemId' => $itemId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/p2p/item/info',
+            array_merge($options, ['itemId' => $itemId])
+        );
     }
 
     /**
@@ -128,8 +140,11 @@ final class P2pService extends BaseService
      */
     public function getOrderDetail(string $orderId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/p2p/order/info',
-            array_merge($options, ['orderId' => $orderId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/p2p/order/info',
+            array_merge($options, ['orderId' => $orderId])
+        );
     }
 
     /**
@@ -145,8 +160,11 @@ final class P2pService extends BaseService
      */
     public function getPendingOrders(int $page, int $size, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/p2p/order/pending/simplifyList',
-            array_merge($options, ['page' => $page, 'size' => $size]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/p2p/order/pending/simplifyList',
+            array_merge($options, ['page' => $page, 'size' => $size])
+        );
     }
 
     /**
@@ -177,8 +195,11 @@ final class P2pService extends BaseService
      */
     public function markOrderAsPaid(string $orderId, string $paymentType, string $paymentId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/p2p/order/pay',
-            array_merge($options, ['orderId' => $orderId, 'paymentType' => $paymentType, 'paymentId' => $paymentId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/p2p/order/pay',
+            array_merge($options, ['orderId' => $orderId, 'paymentType' => $paymentType, 'paymentId' => $paymentId])
+        );
     }
 
     /**
@@ -206,8 +227,11 @@ final class P2pService extends BaseService
      */
     public function createAd(string $tokenId, string $currencyId, string $side, string $priceType, string $premium, string $price, string $minAmount, string $maxAmount, string $remark, array $tradingPreferenceSet, array $paymentIds, string $quantity, string $paymentPeriod, string $itemType, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/p2p/item/create',
-            array_merge($options, ['tokenId' => $tokenId, 'currencyId' => $currencyId, 'side' => $side, 'priceType' => $priceType, 'premium' => $premium, 'price' => $price, 'minAmount' => $minAmount, 'maxAmount' => $maxAmount, 'remark' => $remark, 'tradingPreferenceSet' => $tradingPreferenceSet, 'paymentIds' => $paymentIds, 'quantity' => $quantity, 'paymentPeriod' => $paymentPeriod, 'itemType' => $itemType]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/p2p/item/create',
+            array_merge($options, ['tokenId' => $tokenId, 'currencyId' => $currencyId, 'side' => $side, 'priceType' => $priceType, 'premium' => $premium, 'price' => $price, 'minAmount' => $minAmount, 'maxAmount' => $maxAmount, 'remark' => $remark, 'tradingPreferenceSet' => $tradingPreferenceSet, 'paymentIds' => $paymentIds, 'quantity' => $quantity, 'paymentPeriod' => $paymentPeriod, 'itemType' => $itemType])
+        );
     }
 
     /**
@@ -222,8 +246,11 @@ final class P2pService extends BaseService
      */
     public function releaseAssets(string $orderId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/p2p/order/finish',
-            array_merge($options, ['orderId' => $orderId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/p2p/order/finish',
+            array_merge($options, ['orderId' => $orderId])
+        );
     }
 
     /**
@@ -238,8 +265,11 @@ final class P2pService extends BaseService
      */
     public function removeAd(string $itemId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/p2p/item/cancel',
-            array_merge($options, ['itemId' => $itemId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/p2p/item/cancel',
+            array_merge($options, ['itemId' => $itemId])
+        );
     }
 
     /**
@@ -257,8 +287,11 @@ final class P2pService extends BaseService
      */
     public function sendChatMessage(string $message, string $contentType, string $orderId, string $msgUuid, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/p2p/order/message/send',
-            array_merge($options, ['message' => $message, 'contentType' => $contentType, 'orderId' => $orderId, 'msgUuid' => $msgUuid]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/p2p/order/message/send',
+            array_merge($options, ['message' => $message, 'contentType' => $contentType, 'orderId' => $orderId, 'msgUuid' => $msgUuid])
+        );
     }
 
     /**
@@ -284,8 +317,11 @@ final class P2pService extends BaseService
      */
     public function updateAd(string $id, string $priceType, string $premium, string $price, string $minAmount, string $maxAmount, string $remark, array $tradingPreferenceSet, array $paymentIds, string $actionType, string $quantity, string $paymentPeriod, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/p2p/item/update',
-            array_merge($options, ['id' => $id, 'priceType' => $priceType, 'premium' => $premium, 'price' => $price, 'minAmount' => $minAmount, 'maxAmount' => $maxAmount, 'remark' => $remark, 'tradingPreferenceSet' => $tradingPreferenceSet, 'paymentIds' => $paymentIds, 'actionType' => $actionType, 'quantity' => $quantity, 'paymentPeriod' => $paymentPeriod]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/p2p/item/update',
+            array_merge($options, ['id' => $id, 'priceType' => $priceType, 'premium' => $premium, 'price' => $price, 'minAmount' => $minAmount, 'maxAmount' => $maxAmount, 'remark' => $remark, 'tradingPreferenceSet' => $tradingPreferenceSet, 'paymentIds' => $paymentIds, 'actionType' => $actionType, 'quantity' => $quantity, 'paymentPeriod' => $paymentPeriod])
+        );
     }
 
     /**
@@ -300,7 +336,10 @@ final class P2pService extends BaseService
      */
     public function uploadChatFile(string $upload_file, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/p2p/oss/upload_file',
-            array_merge($options, ['upload_file' => $upload_file]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/p2p/oss/upload_file',
+            array_merge($options, ['upload_file' => $upload_file])
+        );
     }
 }

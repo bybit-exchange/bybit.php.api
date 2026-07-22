@@ -10,14 +10,14 @@ require __DIR__ . '/../vendor/autoload.php';
 use Bybit\Client;
 use Bybit\Configuration;
 use Bybit\Exception\{
-    AuthException,
-    RateLimitException,
-    TimeoutException,
-    NetworkException,
-    ServerException,
-    ClientException,
-    ParseException,
     ApiException,
+    AuthException,
+    ClientException,
+    NetworkException,
+    ParseException,
+    RateLimitException,
+    ServerException,
+    TimeoutException,
 };
 
 $config = new Configuration();

@@ -18,8 +18,11 @@ final class SpotMarginService extends BaseService
      */
     public function getHistoricalInterestRate(string $currency, array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/spot-margin-trade/interest-rate-history',
-            array_merge($options, ['currency' => $currency]));
+        return $this->session->signRequest(
+            'GET',
+            '/v5/spot-margin-trade/interest-rate-history',
+            array_merge($options, ['currency' => $currency])
+        );
     }
 
     /**

@@ -18,8 +18,11 @@ final class RfqService extends BaseService
      */
     public function acceptNonLpQuote(string $rfqId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/rfq/accept-other-quote',
-            array_merge($options, ['rfqId' => $rfqId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/rfq/accept-other-quote',
+            array_merge($options, ['rfqId' => $rfqId])
+        );
     }
 
     /**
@@ -90,8 +93,11 @@ final class RfqService extends BaseService
      */
     public function createQuote(string $rfqId, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/rfq/create-quote',
-            array_merge($options, ['rfqId' => $rfqId]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/rfq/create-quote',
+            array_merge($options, ['rfqId' => $rfqId])
+        );
     }
 
     /**
@@ -107,8 +113,11 @@ final class RfqService extends BaseService
      */
     public function createRfq(array $counterparties, array $list_, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/rfq/create-rfq',
-            array_merge($options, ['counterparties' => $counterparties, 'list' => $list_]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/rfq/create-rfq',
+            array_merge($options, ['counterparties' => $counterparties, 'list' => $list_])
+        );
     }
 
     /**
@@ -125,8 +134,11 @@ final class RfqService extends BaseService
      */
     public function executeQuote(string $rfqId, string $quoteId, string $quoteSide, array $options = []): array
     {
-        return $this->session->signRequest('POST', '/v5/rfq/execute-quote',
-            array_merge($options, ['rfqId' => $rfqId, 'quoteId' => $quoteId, 'quoteSide' => $quoteSide]));
+        return $this->session->signRequest(
+            'POST',
+            '/v5/rfq/execute-quote',
+            array_merge($options, ['rfqId' => $rfqId, 'quoteId' => $quoteId, 'quoteSide' => $quoteSide])
+        );
     }
 
     /**
