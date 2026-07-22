@@ -18,12 +18,9 @@
             <directory>src</directory>
         </include>
     </source>
-    <!--
-      Coverage is opt-in via CLI flags (see `composer test-coverage`).
-      An always-on <coverage> block would make PHPUnit emit "No code coverage
-      driver available" warnings on environments without Xdebug / PCOV; when
-      combined with failOnWarning="true" that becomes a hard test failure.
-      When the caller explicitly requests coverage on a runner that has PCOV
-      installed, PHPUnit picks up the option from the CLI.
-    -->
+    <coverage>
+        <report>
+            <text outputFile="php://stdout" showUncoveredFiles="true"/>
+        </report>
+    </coverage>
 </phpunit>
