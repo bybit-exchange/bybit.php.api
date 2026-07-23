@@ -30,9 +30,24 @@ final class TradeService extends BaseService
      *
      * POST /v5/order/amend
      *
-     * @param string $category Product type
-     * @param string $symbol Symbol name
-     * @param array $options
+     * @param string $category Product type — spot / linear / inverse / option.
+     * @param string $symbol Symbol name.
+     * @param array{
+     *     orderId?:string,
+     *     orderLinkId?:string,
+     *     orderIv?:string,
+     *     triggerPrice?:string,
+     *     qty?:string,
+     *     price?:string,
+     *     tpslMode?:string,
+     *     takeProfit?:string,
+     *     stopLoss?:string,
+     *     tpTriggerBy?:string,
+     *     slTriggerBy?:string,
+     *     triggerBy?:string,
+     *     tpLimitPrice?:string,
+     *     slLimitPrice?:string
+     * } $options One of orderId / orderLinkId is required.
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/order/amend-order
      */
@@ -129,9 +144,13 @@ final class TradeService extends BaseService
      *
      * POST /v5/order/cancel
      *
-     * @param string $category Product type
-     * @param string $symbol Symbol name
-     * @param array $options
+     * @param string $category Product type — spot / linear / inverse / option.
+     * @param string $symbol Symbol name.
+     * @param array{
+     *     orderId?:string,
+     *     orderLinkId?:string,
+     *     orderFilter?:string
+     * } $options One of orderId / orderLinkId is required.
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/order/cancel-order
      */
@@ -149,12 +168,39 @@ final class TradeService extends BaseService
      *
      * POST /v5/order/create
      *
-     * @param string $category Product type
-     * @param string $symbol Symbol name
-     * @param string $side Buy or Sell
-     * @param string $orderType Market or Limit
-     * @param string $qty Order quantity
-     * @param array $options
+     * @param string $category Product type — spot / linear / inverse / option.
+     * @param string $symbol Symbol name.
+     * @param string $side "Buy" or "Sell".
+     * @param string $orderType "Market" or "Limit".
+     * @param string $qty Order quantity as a string (Bybit rejects scientific notation).
+     * @param array{
+     *     isLeverage?:int,
+     *     marketUnit?:string,
+     *     slippageToleranceType?:string,
+     *     slippageTolerance?:string,
+     *     price?:string,
+     *     triggerDirection?:int,
+     *     orderFilter?:string,
+     *     triggerPrice?:string,
+     *     triggerBy?:string,
+     *     orderIv?:string,
+     *     timeInForce?:string,
+     *     positionIdx?:int,
+     *     orderLinkId?:string,
+     *     takeProfit?:string,
+     *     stopLoss?:string,
+     *     tpTriggerBy?:string,
+     *     slTriggerBy?:string,
+     *     reduceOnly?:bool,
+     *     closeOnTrigger?:bool,
+     *     smpType?:string,
+     *     mmp?:bool,
+     *     tpslMode?:string,
+     *     tpLimitPrice?:string,
+     *     slLimitPrice?:string,
+     *     tpOrderType?:string,
+     *     slOrderType?:string
+     * } $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/order/create-order
      */
@@ -177,7 +223,7 @@ final class TradeService extends BaseService
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/order/dcp
      */
-    public function dcpSetTimewindow(int $timeWindow, array $options = []): array
+    public function dcpSetTimeWindow(int $timeWindow, array $options = []): array
     {
         return $this->session->signRequest(
             'POST',

@@ -11,9 +11,9 @@ final class BotService extends BaseService
      *
      * POST /v5/dca/close-bot
      *
-     * @param int $botId DCA bot identifier
-     * @param int $closeMode Settlement mode for closing the bot
-     * @param array $options
+     * @param int $botId DCA bot identifier.
+     * @param int $closeMode Settlement mode for closing the bot.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -22,7 +22,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/dca/close-bot',
-            array_merge($options, ['bot_id' => $botId, 'close_mode' => $closeMode])
+            array_merge($options, ['botId' => $botId, 'closeMode' => $closeMode])
         );
     }
 
@@ -31,8 +31,8 @@ final class BotService extends BaseService
      *
      * POST /v5/dca/create-bot
      *
-     * @param array $parameters DCA bot configuration parameters
-     * @param array $options
+     * @param array<string,mixed> $parameters DCA bot configuration parameters.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -51,7 +51,7 @@ final class BotService extends BaseService
      * POST /v5/fcombobot/close
      *
      * @param int $botId Bot ID of the futures combo bot to close.
-     * @param array $options
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -60,7 +60,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/fcombobot/close',
-            array_merge($options, ['bot_id' => $botId])
+            array_merge($options, ['botId' => $botId])
         );
     }
 
@@ -72,8 +72,8 @@ final class BotService extends BaseService
      * @param string $leverage Leverage value for the combo bot.
      * @param string $initMargin Initial margin allocated to the bot.
      * @param int $adjustPositionMode Position adjustment mode for rebalancing.
-     * @param array $symbolSettings List of symbol-level settings for the multi-symbol portfolio.
-     * @param array $options
+     * @param list<array<string,mixed>> $symbolSettings Symbol-level settings for the multi-symbol portfolio.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -82,7 +82,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/fcombobot/create',
-            array_merge($options, ['leverage' => $leverage, 'init_margin' => $initMargin, 'adjust_position_mode' => $adjustPositionMode, 'symbol_settings' => $symbolSettings])
+            array_merge($options, ['leverage' => $leverage, 'initMargin' => $initMargin, 'adjustPositionMode' => $adjustPositionMode, 'symbolSettings' => $symbolSettings])
         );
     }
 
@@ -92,7 +92,7 @@ final class BotService extends BaseService
      * POST /v5/fcombobot/detail
      *
      * @param int $botId Bot ID of the futures combo bot to query.
-     * @param array $options
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -101,7 +101,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/fcombobot/detail',
-            array_merge($options, ['bot_id' => $botId])
+            array_merge($options, ['botId' => $botId])
         );
     }
 
@@ -113,8 +113,8 @@ final class BotService extends BaseService
      * @param string $leverage Leverage value for the combo bot.
      * @param string $initMargin Initial margin allocated to the bot.
      * @param int $adjustPositionMode Position adjustment mode for rebalancing.
-     * @param array $symbolSettings List of symbol-level settings for the multi-symbol portfolio.
-     * @param array $options
+     * @param list<array<string,mixed>> $symbolSettings Symbol-level settings for the multi-symbol portfolio.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -123,7 +123,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/fcombobot/getlimit',
-            array_merge($options, ['leverage' => $leverage, 'init_margin' => $initMargin, 'adjust_position_mode' => $adjustPositionMode, 'symbol_settings' => $symbolSettings])
+            array_merge($options, ['leverage' => $leverage, 'initMargin' => $initMargin, 'adjustPositionMode' => $adjustPositionMode, 'symbolSettings' => $symbolSettings])
         );
     }
 
@@ -132,8 +132,8 @@ final class BotService extends BaseService
      *
      * POST /v5/fgridbot/close
      *
-     * @param int $botId Bot ID
-     * @param array $options
+     * @param int $botId Bot ID.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -142,7 +142,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/fgridbot/close',
-            array_merge($options, ['bot_id' => $botId])
+            array_merge($options, ['botId' => $botId])
         );
     }
 
@@ -151,15 +151,15 @@ final class BotService extends BaseService
      *
      * POST /v5/fgridbot/create
      *
-     * @param string $symbol Trading symbol
-     * @param int $gridMode Grid mode
-     * @param string $minPrice Minimum price of grid range
-     * @param string $maxPrice Maximum price of grid range
-     * @param int $cellNumber Number of grid cells
-     * @param string $leverage Leverage
-     * @param int $gridType Grid type
-     * @param string $totalInvestment Total investment amount
-     * @param array $options
+     * @param string $symbol Trading symbol.
+     * @param int $gridMode Grid mode.
+     * @param string $minPrice Minimum price of grid range.
+     * @param string $maxPrice Maximum price of grid range.
+     * @param int $cellNumber Number of grid cells.
+     * @param string $leverage Leverage.
+     * @param int $gridType Grid type.
+     * @param string $totalInvestment Total investment amount.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -168,7 +168,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/fgridbot/create',
-            array_merge($options, ['symbol' => $symbol, 'grid_mode' => $gridMode, 'min_price' => $minPrice, 'max_price' => $maxPrice, 'cell_number' => $cellNumber, 'leverage' => $leverage, 'grid_type' => $gridType, 'total_investment' => $totalInvestment])
+            array_merge($options, ['symbol' => $symbol, 'gridMode' => $gridMode, 'minPrice' => $minPrice, 'maxPrice' => $maxPrice, 'cellNumber' => $cellNumber, 'leverage' => $leverage, 'gridType' => $gridType, 'totalInvestment' => $totalInvestment])
         );
     }
 
@@ -177,8 +177,8 @@ final class BotService extends BaseService
      *
      * POST /v5/fgridbot/detail
      *
-     * @param int $botId Bot ID
-     * @param array $options
+     * @param int $botId Bot ID.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -187,7 +187,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/fgridbot/detail',
-            array_merge($options, ['bot_id' => $botId])
+            array_merge($options, ['botId' => $botId])
         );
     }
 
@@ -196,14 +196,14 @@ final class BotService extends BaseService
      *
      * POST /v5/fgridbot/validate
      *
-     * @param string $symbol Trading symbol
-     * @param int $cellNumber Number of grid cells
-     * @param string $minPrice Minimum price of grid range
-     * @param string $maxPrice Maximum price of grid range
-     * @param string $leverage Leverage
-     * @param int $gridType Grid type
-     * @param int $gridMode Grid mode
-     * @param array $options
+     * @param string $symbol Trading symbol.
+     * @param int $cellNumber Number of grid cells.
+     * @param string $minPrice Minimum price of grid range.
+     * @param string $maxPrice Maximum price of grid range.
+     * @param string $leverage Leverage.
+     * @param int $gridType Grid type.
+     * @param int $gridMode Grid mode.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -212,7 +212,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/fgridbot/validate',
-            array_merge($options, ['symbol' => $symbol, 'cell_number' => $cellNumber, 'min_price' => $minPrice, 'max_price' => $maxPrice, 'leverage' => $leverage, 'grid_type' => $gridType, 'grid_mode' => $gridMode])
+            array_merge($options, ['symbol' => $symbol, 'cellNumber' => $cellNumber, 'minPrice' => $minPrice, 'maxPrice' => $maxPrice, 'leverage' => $leverage, 'gridType' => $gridType, 'gridMode' => $gridMode])
         );
     }
 
@@ -221,8 +221,8 @@ final class BotService extends BaseService
      *
      * POST /v5/fmartingalebot/close
      *
-     * @param int $botId Bot ID to close
-     * @param array $options
+     * @param int $botId Bot ID to close.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -231,7 +231,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/fmartingalebot/close',
-            array_merge($options, ['bot_id' => $botId])
+            array_merge($options, ['botId' => $botId])
         );
     }
 
@@ -240,15 +240,15 @@ final class BotService extends BaseService
      *
      * POST /v5/fmartingalebot/create
      *
-     * @param string $symbol Symbol
-     * @param string $martingaleMode Martingale mode
-     * @param string $leverage Leverage
-     * @param string $priceFloatPercent Price float percent
-     * @param string $addPositionPercent Add position percent
-     * @param int $addPositionNum Number of add position rounds
-     * @param string $initMargin Initial margin
-     * @param string $roundTpPercent Round take-profit percent
-     * @param array $options
+     * @param string $symbol Symbol.
+     * @param string $martingaleMode Martingale mode.
+     * @param string $leverage Leverage.
+     * @param string $priceFloatPercent Price float percent.
+     * @param string $addPositionPercent Add position percent.
+     * @param int $addPositionNum Number of add position rounds.
+     * @param string $initMargin Initial margin.
+     * @param string $roundTpPercent Round take-profit percent.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -257,7 +257,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/fmartingalebot/create',
-            array_merge($options, ['symbol' => $symbol, 'martingale_mode' => $martingaleMode, 'leverage' => $leverage, 'price_float_percent' => $priceFloatPercent, 'add_position_percent' => $addPositionPercent, 'add_position_num' => $addPositionNum, 'init_margin' => $initMargin, 'round_tp_percent' => $roundTpPercent])
+            array_merge($options, ['symbol' => $symbol, 'martingaleMode' => $martingaleMode, 'leverage' => $leverage, 'priceFloatPercent' => $priceFloatPercent, 'addPositionPercent' => $addPositionPercent, 'addPositionNum' => $addPositionNum, 'initMargin' => $initMargin, 'roundTpPercent' => $roundTpPercent])
         );
     }
 
@@ -266,8 +266,8 @@ final class BotService extends BaseService
      *
      * POST /v5/fmartingalebot/detail
      *
-     * @param int $botId Bot ID
-     * @param array $options
+     * @param int $botId Bot ID.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -276,7 +276,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/fmartingalebot/detail',
-            array_merge($options, ['bot_id' => $botId])
+            array_merge($options, ['botId' => $botId])
         );
     }
 
@@ -285,10 +285,10 @@ final class BotService extends BaseService
      *
      * POST /v5/fmartingalebot/getlimit
      *
-     * @param string $symbol Symbol
-     * @param string $martingaleMode Martingale mode
-     * @param string $leverage Leverage
-     * @param array $options
+     * @param string $symbol Symbol.
+     * @param string $martingaleMode Martingale mode.
+     * @param string $leverage Leverage.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -297,7 +297,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/fmartingalebot/getlimit',
-            array_merge($options, ['symbol' => $symbol, 'martingale_mode' => $martingaleMode, 'leverage' => $leverage])
+            array_merge($options, ['symbol' => $symbol, 'martingaleMode' => $martingaleMode, 'leverage' => $leverage])
         );
     }
 
@@ -306,9 +306,9 @@ final class BotService extends BaseService
      *
      * POST /v5/grid/close-grid
      *
-     * @param int $gridId Grid bot identifier
-     * @param int $closeMode Settlement mode used to close the grid bot
-     * @param array $options
+     * @param int $gridId Grid bot identifier.
+     * @param int $closeMode Settlement mode used to close the grid bot.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -317,7 +317,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/grid/close-grid',
-            array_merge($options, ['grid_id' => $gridId, 'close_mode' => $closeMode])
+            array_merge($options, ['gridId' => $gridId, 'closeMode' => $closeMode])
         );
     }
 
@@ -326,12 +326,12 @@ final class BotService extends BaseService
      *
      * POST /v5/grid/create-grid
      *
-     * @param string $symbol Trading pair symbol
-     * @param string $maxPrice Upper bound price of the grid range
-     * @param string $minPrice Lower bound price of the grid range
-     * @param string $totalInvestment Total investment amount
-     * @param int $cellNumber Number of grid cells
-     * @param array $options
+     * @param string $symbol Trading pair symbol.
+     * @param string $maxPrice Upper bound price of the grid range.
+     * @param string $minPrice Lower bound price of the grid range.
+     * @param string $totalInvestment Total investment amount.
+     * @param int $cellNumber Number of grid cells.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -340,7 +340,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/grid/create-grid',
-            array_merge($options, ['symbol' => $symbol, 'max_price' => $maxPrice, 'min_price' => $minPrice, 'total_investment' => $totalInvestment, 'cell_number' => $cellNumber])
+            array_merge($options, ['symbol' => $symbol, 'maxPrice' => $maxPrice, 'minPrice' => $minPrice, 'totalInvestment' => $totalInvestment, 'cellNumber' => $cellNumber])
         );
     }
 
@@ -349,8 +349,8 @@ final class BotService extends BaseService
      *
      * POST /v5/grid/query-grid-detail
      *
-     * @param int $gridId Grid bot identifier
-     * @param array $options
+     * @param int $gridId Grid bot identifier.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -359,7 +359,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/grid/query-grid-detail',
-            array_merge($options, ['grid_id' => $gridId])
+            array_merge($options, ['gridId' => $gridId])
         );
     }
 
@@ -368,12 +368,12 @@ final class BotService extends BaseService
      *
      * POST /v5/grid/validate-input
      *
-     * @param string $symbol Trading pair symbol
-     * @param int $cellNumber Number of grid cells
-     * @param string $minPrice Lower bound price of the grid range
-     * @param string $maxPrice Upper bound price of the grid range
-     * @param string $totalInvestment Total investment amount
-     * @param array $options
+     * @param string $symbol Trading pair symbol.
+     * @param int $cellNumber Number of grid cells.
+     * @param string $minPrice Lower bound price of the grid range.
+     * @param string $maxPrice Upper bound price of the grid range.
+     * @param string $totalInvestment Total investment amount.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -382,7 +382,7 @@ final class BotService extends BaseService
         return $this->session->signRequest(
             'POST',
             '/v5/grid/validate-input',
-            array_merge($options, ['symbol' => $symbol, 'cell_number' => $cellNumber, 'min_price' => $minPrice, 'max_price' => $maxPrice, 'total_investment' => $totalInvestment])
+            array_merge($options, ['symbol' => $symbol, 'cellNumber' => $cellNumber, 'minPrice' => $minPrice, 'maxPrice' => $maxPrice, 'totalInvestment' => $totalInvestment])
         );
     }
 }

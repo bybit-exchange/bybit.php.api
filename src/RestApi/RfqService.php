@@ -11,8 +11,8 @@ final class RfqService extends BaseService
      *
      * POST /v5/rfq/accept-other-quote
      *
-     * @param string $rfqId RFQ ID
-     * @param array $options
+     * @param string $rfqId RFQ ID.
+     * @param array{quoteId?:string, quoteSide?:string} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -30,7 +30,7 @@ final class RfqService extends BaseService
      *
      * POST /v5/rfq/cancel-all-quotes
      *
-     * @param array $options
+     * @param array{rfqId?:string} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -44,7 +44,7 @@ final class RfqService extends BaseService
      *
      * POST /v5/rfq/cancel-all-rfq
      *
-     * @param array $options
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -58,7 +58,7 @@ final class RfqService extends BaseService
      *
      * POST /v5/rfq/cancel-quote
      *
-     * @param array $options
+     * @param array{quoteId?:string, rfqId?:string} $options One of the two required.
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -72,7 +72,7 @@ final class RfqService extends BaseService
      *
      * POST /v5/rfq/cancel-rfq
      *
-     * @param array $options
+     * @param array{rfqId?:string} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -86,8 +86,8 @@ final class RfqService extends BaseService
      *
      * POST /v5/rfq/create-quote
      *
-     * @param string $rfqId RFQ ID
-     * @param array $options
+     * @param string $rfqId RFQ ID.
+     * @param array{list?:list<array<string,mixed>>, quoteRfqType?:int, anonymous?:bool} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -105,18 +105,18 @@ final class RfqService extends BaseService
      *
      * POST /v5/rfq/create-rfq
      *
-     * @param array $counterparties List of counterparties
-     * @param array $list_ RFQ leg list
-     * @param array $options
+     * @param array $counterparties List of counterparties.
+     * @param list<array<string,mixed>> $list RFQ leg list.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
-    public function createRfq(array $counterparties, array $list_, array $options = []): array
+    public function createRfq(array $counterparties, array $list, array $options = []): array
     {
         return $this->session->signRequest(
             'POST',
             '/v5/rfq/create-rfq',
-            array_merge($options, ['counterparties' => $counterparties, 'list' => $list_])
+            array_merge($options, ['counterparties' => $counterparties, 'list' => $list])
         );
     }
 
@@ -125,10 +125,10 @@ final class RfqService extends BaseService
      *
      * POST /v5/rfq/execute-quote
      *
-     * @param string $rfqId RFQ ID
-     * @param string $quoteId Quote ID
-     * @param string $quoteSide Quote side
-     * @param array $options
+     * @param string $rfqId RFQ ID.
+     * @param string $quoteId Quote ID.
+     * @param string $quoteSide Quote side.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -146,7 +146,7 @@ final class RfqService extends BaseService
      *
      * GET /v5/rfq/public-trades
      *
-     * @param array $options
+     * @param array{baseCoin?:string, symbol?:string, startTime?:int, endTime?:int, limit?:int, cursor?:string} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -160,7 +160,7 @@ final class RfqService extends BaseService
      *
      * GET /v5/rfq/quote-list
      *
-     * @param array $options
+     * @param array{rfqId?:string, quoteId?:string, status?:string, startTime?:int, endTime?:int, limit?:int, cursor?:string} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -174,7 +174,7 @@ final class RfqService extends BaseService
      *
      * GET /v5/rfq/quote-realtime
      *
-     * @param array $options
+     * @param array{rfqId?:string, quoteId?:string} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -188,7 +188,7 @@ final class RfqService extends BaseService
      *
      * GET /v5/rfq/config
      *
-     * @param array $options
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -202,7 +202,7 @@ final class RfqService extends BaseService
      *
      * GET /v5/rfq/rfq-list
      *
-     * @param array $options
+     * @param array{rfqId?:string, status?:string, startTime?:int, endTime?:int, limit?:int, cursor?:string} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -216,7 +216,7 @@ final class RfqService extends BaseService
      *
      * GET /v5/rfq/rfq-realtime
      *
-     * @param array $options
+     * @param array{rfqId?:string} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
@@ -230,7 +230,7 @@ final class RfqService extends BaseService
      *
      * GET /v5/rfq/trade-list
      *
-     * @param array $options
+     * @param array{tradeId?:string, symbol?:string, baseCoin?:string, startTime?:int, endTime?:int, limit?:int, cursor?:string} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */

@@ -44,16 +44,17 @@ final class SessionTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push(Middleware::history($history));
 
-        $config = new Configuration();
-        $config->apiKey    = 'test-key';
-        $config->apiSecret = 'test-secret';
-        $config->baseUrl   = 'https://api-testnet.bybit.com';
-        $config->recvWindow = '5000';
-        $config->httpClient = new GuzzleClient([
-            'handler' => $stack,
-            'base_uri' => 'https://api-testnet.bybit.com',
-            'http_errors' => false,
-        ]);
+        $config = new Configuration(
+            apiKey: 'test-key',
+            apiSecret: 'test-secret',
+            recvWindow: '5000',
+            baseUrl: 'https://api-testnet.bybit.com',
+            httpClient: new GuzzleClient([
+                'handler' => $stack,
+                'base_uri' => 'https://api-testnet.bybit.com',
+                'http_errors' => false,
+            ]),
+        );
 
         return new Session($config);
     }
@@ -108,8 +109,6 @@ final class SessionTest extends TestCase
     public function testMissingApiKeyThrows(): void
     {
         $config = new Configuration();
-        $config->apiKey = null;
-        $config->apiSecret = null;
         $session = new Session($config);
         $this->expectException(ConfigurationException::class);
         $this->expectExceptionMessageMatches('/apiKey/');
@@ -299,7 +298,9 @@ final class SessionTest extends TestCase
         $this->assertStringNotContainsString('E-', $wireQuery);
         $this->assertStringNotContainsString('e-', $wireQuery);
         $this->assertStringContainsString('big=12345.6789', $wireQuery);
-        $this->assertStringContainsString('tiny=0.00000000', $wireQuery); // scaled-out prefix
+        // Lock the trailing significant digit — 'tiny=0.00000000' alone would
+        // pass under a precision regression that drops the final '1'.
+        $this->assertStringContainsString('tiny=0.000000001', $wireQuery);
         $this->assertStringContainsString('zero=0', $wireQuery);
     }
 
@@ -380,5 +381,231 @@ final class SessionTest extends TestCase
         // second dequeue and thrown "queue is empty" — but that would raise a
         // Guzzle exception, not a bybit-family one.
         $this->assertCount(1, $history, 'redirect was followed — X-BAPI-SIGN would leak');
+    }
+
+    // ── ApiException dispatch table regression lock ──────────────────────────
+    // ApiException::fromResponse routes 10 retCodes to typed subclasses. If a
+    // future edit removes / reshuffles a code, downstream retry/backoff logic
+    // silently misclassifies — one of the most damaging regressions a signing
+    // SDK can ship. Iterate every code.
+
+    /**
+     * @return list<array{int,class-string<\Bybit\Exception\ApiException>}>
+     */
+    public static function apiExceptionDispatchProvider(): array
+    {
+        return [
+            [10002, AuthException::class],
+            [10003, AuthException::class],
+            [10004, AuthException::class],
+            [10005, AuthException::class],
+            [10007, AuthException::class],
+            [10008, AuthException::class],
+            [10009, AuthException::class],
+            [10010, AuthException::class],
+            [10017, AuthException::class],
+            [10022, AuthException::class],
+            [10024, AuthException::class],
+            [10028, AuthException::class],
+            [10029, AuthException::class],
+            [10006, RateLimitException::class],
+            [10018, RateLimitException::class],
+            // Unmapped code stays as the base class.
+            [12345, \Bybit\Exception\ApiException::class],
+        ];
+    }
+
+    /**
+     * @dataProvider apiExceptionDispatchProvider
+     * @param class-string<\Bybit\Exception\ApiException> $expected
+     */
+    public function testApiExceptionDispatchTable(int $retCode, string $expected): void
+    {
+        $history = [];
+        $session = $this->makeSession([
+            new Response(200, ['Content-Type' => 'application/json'], $this->okBody($retCode, 'nope')),
+        ], $history);
+        try {
+            $session->signRequest('GET', '/v5/foo');
+            $this->fail("expected {$expected} for retCode {$retCode}");
+        } catch (\Bybit\Exception\ApiException $e) {
+            $this->assertInstanceOf($expected, $e);
+            $this->assertSame($retCode, $e->getRetCode());
+        }
+    }
+
+    // ── Header-shape locks: format of X-BAPI-TIMESTAMP + X-BAPI-RECV-WINDOW ──
+    // testSignedGetPayloadEqualsWireQuery re-derives the signature FROM the wire
+    // headers, so a regression to microtime()/ISO-8601 timestamps would still be
+    // internally consistent and pass. Assert the SHAPE explicitly.
+
+    public function testTimestampHeaderIsThirteenDigitMsEpoch(): void
+    {
+        $history = [];
+        $session = $this->makeSession([
+            new Response(200, ['Content-Type' => 'application/json'], $this->okBody()),
+        ], $history);
+        $session->signRequest('GET', '/v5/foo');
+
+        $req = $history[0]['request'];
+        $ts = $req->getHeaderLine('X-BAPI-TIMESTAMP');
+        $this->assertMatchesRegularExpression('/^\d{13}$/', $ts, 'X-BAPI-TIMESTAMP must be a 13-digit ms-epoch');
+        $nowMs = (int) floor(microtime(true) * 1000);
+        $this->assertLessThan(5000, abs($nowMs - (int) $ts), 'X-BAPI-TIMESTAMP drifted from now by >5s');
+
+        $this->assertSame('5000', $req->getHeaderLine('X-BAPI-RECV-WINDOW'));
+    }
+
+    public function testRecvWindowDefaultAppliesWhenNotOverridden(): void
+    {
+        // Reach past makeSession() — that helper hardcodes recvWindow='5000',
+        // which would mask a default-value regression. Build Session directly.
+        $mock = new MockHandler([
+            new Response(200, ['Content-Type' => 'application/json'], $this->okBody()),
+        ]);
+        $history = [];
+        $stack = HandlerStack::create($mock);
+        $stack->push(Middleware::history($history));
+
+        $config = new Configuration(
+            apiKey: 'k',
+            apiSecret: 's',
+            baseUrl: 'https://api-testnet.bybit.com',
+            httpClient: new GuzzleClient([
+                'handler' => $stack,
+                'base_uri' => 'https://api-testnet.bybit.com',
+                'http_errors' => false,
+            ]),
+        );
+        $session = new Session($config);
+        $session->signRequest('GET', '/v5/foo');
+
+        $this->assertSame(\Bybit\Bybit::DEFAULT_RECV_WINDOW, $history[0]['request']->getHeaderLine('X-BAPI-RECV-WINDOW'));
+    }
+
+    // ── WireKeys wire-in ─────────────────────────────────────────────────────
+    // Session::dispatch calls WireKeys::camelize on caller params before
+    // signing / serializing. A caller passing snake_case must see camelCase on
+    // the wire — else the Bybit V5 server 10001-rejects.
+
+    public function testSnakeCaseCallerKeysAreCamelizedOnWire(): void
+    {
+        $history = [];
+        $session = $this->makeSession([
+            new Response(200, ['Content-Type' => 'application/json'], $this->okBody()),
+        ], $history);
+        $session->signRequest('POST', '/v5/order/create', [
+            'order_type' => 'Limit',
+            'time_in_force' => 'GTC',
+            'symbol' => 'BTCUSDT',
+        ]);
+
+        $req = $history[0]['request'];
+        $bodyOnWire = (string) $req->getBody();
+        $this->assertStringContainsString('"orderType":"Limit"', $bodyOnWire);
+        $this->assertStringContainsString('"timeInForce":"GTC"', $bodyOnWire);
+        // Original snake_case must NOT survive to the wire.
+        $this->assertStringNotContainsString('order_type', $bodyOnWire);
+        $this->assertStringNotContainsString('time_in_force', $bodyOnWire);
+    }
+
+    public function testSnakeCaseCallerKeysAreCamelizedOnQueryString(): void
+    {
+        $history = [];
+        $session = $this->makeSession([
+            new Response(200, ['Content-Type' => 'application/json'], $this->okBody()),
+        ], $history);
+        $session->publicRequest('GET', '/v5/market/kline', [
+            'category' => 'spot',
+            'symbol' => 'BTCUSDT',
+            'start_time' => 1700000000,
+        ]);
+
+        $wireQuery = $history[0]['request']->getUri()->getQuery();
+        $this->assertStringContainsString('startTime=1700000000', $wireQuery);
+        $this->assertStringNotContainsString('start_time', $wireQuery);
+    }
+
+    // ── HTTP-status → exception mapping for non-envelope 4xx ─────────────────
+    // README documents 401/403 → AuthException, 429 → RateLimitException even
+    // when the response body is not a Bybit envelope (WAF / CDN / edge auth).
+
+    public function testHttp401NonEnvelopeMapsToAuthException(): void
+    {
+        $history = [];
+        $session = $this->makeSession([
+            new Response(401, [], 'Unauthorized'),
+        ], $history);
+        $this->expectException(AuthException::class);
+        $session->signRequest('GET', '/v5/account/wallet-balance');
+    }
+
+    public function testHttp403NonEnvelopeMapsToAuthException(): void
+    {
+        $history = [];
+        $session = $this->makeSession([
+            new Response(403, [], 'Forbidden'),
+        ], $history);
+        $this->expectException(AuthException::class);
+        $session->signRequest('GET', '/v5/account/wallet-balance');
+    }
+
+    public function testHttp429NonEnvelopeMapsToRateLimitException(): void
+    {
+        $history = [];
+        $session = $this->makeSession([
+            new Response(429, [], 'Too Many Requests'),
+        ], $history);
+        $this->expectException(RateLimitException::class);
+        $session->publicRequest('GET', '/v5/market/time');
+    }
+
+    // ── P2P legacy envelope → AuthException routing ──────────────────────────
+    // If normalizeLegacyEnvelope / fromResponse ordering regresses, a P2P
+    // ret_code=10004 would silently downgrade to base ApiException. Lock it.
+
+    // ── sortAndEncode nested-assoc guard ─────────────────────────────────────
+    // GET/DELETE support only flat scalar + list<scalar> params. A nested
+    // associative array or list-of-arrays would previously silently mis-encode
+    // (dropping inner keys, or emitting literal 'Array'). Session now rejects
+    // at the source so latent regressions surface immediately.
+
+    public function testNestedAssocArrayOnQueryRejected(): void
+    {
+        $history = [];
+        $session = $this->makeSession([
+            new Response(200, ['Content-Type' => 'application/json'], $this->okBody()),
+        ], $history);
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches('/nested/i');
+        $session->publicRequest('GET', '/v5/foo', ['filter' => ['side' => 'Buy']]);
+    }
+
+    public function testListOfArraysOnQueryRejected(): void
+    {
+        $history = [];
+        $session = $this->makeSession([
+            new Response(200, ['Content-Type' => 'application/json'], $this->okBody()),
+        ], $history);
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches('/list-of-arrays/i');
+        $session->publicRequest('GET', '/v5/foo', ['batch' => [['a' => 1], ['a' => 2]]]);
+    }
+
+    public function testP2pLegacyEnvelopeRoutesRetCode10004ToAuthException(): void
+    {
+        $history = [];
+        $legacyBody = json_encode([
+            'ret_code' => 10004,
+            'ret_msg' => 'error sign',
+            'result' => new \stdClass(),
+            'ext_info' => new \stdClass(),
+            'time_now' => '1700000000.000000',
+        ]) ?: '';
+        $session = $this->makeSession([
+            new Response(200, ['Content-Type' => 'application/json'], $legacyBody),
+        ], $history);
+        $this->expectException(AuthException::class);
+        $session->signRequest('POST', '/v5/p2p/order/simplifyList');
     }
 }

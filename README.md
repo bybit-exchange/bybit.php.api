@@ -18,15 +18,16 @@ about:
   withdrawals) and prefer IP-restricted keys.
 
 Testnet and mainnet keys are **separate** — an API key issued on one won't
-work against the other. The SDK selects the environment via
-`$config->testnet = true|false` (or an explicit `$config->baseUrl` override).
+work against the other. The SDK selects the environment via the
+`testnet: true|false` constructor argument on `Configuration` (or an explicit
+`baseUrl:` override).
 
 ## Installation
 
 PHP >= 8.1 is required (PHP 8.3.x recommended). Composer 2.x.
 
 ```
-composer require bybit/bybit-connector-php
+composer require bybit-exchange/bybit-connector-php
 ```
 
 ## Quick Start
@@ -39,12 +40,13 @@ require __DIR__ . '/vendor/autoload.php';
 use Bybit\Client;
 use Bybit\Configuration;
 
-// All calls below run against testnet — flip testnet to false for mainnet
+// All calls below run against testnet — flip testnet: false for mainnet
 // once you're happy with the behavior.
-$config = new Configuration();
-$config->apiKey    = getenv('BYBIT_TESTNET_KEY') ?: null;
-$config->apiSecret = getenv('BYBIT_TESTNET_SECRET') ?: null;
-$config->testnet   = true;
+$config = new Configuration(
+    apiKey: getenv('BYBIT_TESTNET_KEY') ?: null,
+    apiSecret: getenv('BYBIT_TESTNET_SECRET') ?: null,
+    testnet: true,
+);
 
 $client = new Client($config);
 
@@ -78,22 +80,28 @@ See `examples/quickstart.php` for a runnable script.
 
 ## Configuration
 
-All options live on `Bybit\Configuration`. Instantiate, set fields, pass to
-`Client`:
+All options live on `Bybit\Configuration`. Instantiate with named arguments
+and pass to `Client`:
 
 ```php
 use Bybit\Configuration;
 
-$config = new Configuration();
-$config->apiKey     = getenv('BYBIT_KEY');
-$config->apiSecret  = getenv('BYBIT_SECRET');
-$config->testnet    = false;             // default false
-$config->recvWindow = '5000';            // milliseconds — Bybit rejects requests
-                                         // whose signed timestamp is older than
-                                         // this window. Bump to 10000+ if your
-                                         // clock drifts or the network is noisy.
-$config->timeout    = 10;                // Guzzle timeout, seconds
+$config = new Configuration(
+    apiKey:     getenv('BYBIT_TESTNET_KEY') ?: null,
+    apiSecret:  getenv('BYBIT_TESTNET_SECRET') ?: null,
+    recvWindow: '5000',   // milliseconds — Bybit rejects requests whose signed
+                          // timestamp is older than this window. Bump to
+                          // 10000+ if your clock drifts or the network is noisy.
+    testnet:    true,     // false selects mainnet (default)
+    timeout:    10,       // Guzzle timeout, seconds
+);
 ```
+
+`testnet`, `baseUrl`, `timeout`, and `httpClient` are **readonly** — set them
+via the constructor and Configuration is a snapshot the Session captures at
+Client construction. `apiKey`, `apiSecret`, and `recvWindow` remain writable
+on the object so callers can rotate credentials mid-run without rebuilding
+the Client.
 
 Bring your own Guzzle client to inject retries / logging / middleware:
 
@@ -101,7 +109,6 @@ Bring your own Guzzle client to inject retries / logging / middleware:
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
-use GuzzleHttp\Retry;
 
 $stack = HandlerStack::create();
 $stack->push(Middleware::retry(
@@ -109,12 +116,22 @@ $stack->push(Middleware::retry(
     fn($retries) => (int) pow(2, $retries) * 1000  // 1s, 2s, 4s (ms)
 ));
 
-$config->httpClient = new GuzzleClient([
-    'base_uri' => 'https://api-testnet.bybit.com',
-    'handler'  => $stack,
-    'timeout'  => 5,
-]);
+$config = new Configuration(
+    apiKey:    getenv('BYBIT_TESTNET_KEY') ?: null,
+    apiSecret: getenv('BYBIT_TESTNET_SECRET') ?: null,
+    httpClient: new GuzzleClient([
+        'base_uri' => 'https://api-testnet.bybit.com',
+        'handler'  => $stack,
+        'timeout'  => 5,
+    ]),
+);
 ```
+
+> ⚠️ When you inject `httpClient`, the SDK does **not** re-apply
+> `Configuration::$baseUrl` / `$testnet` / `$timeout` onto your client — the
+> injected Guzzle instance is used as-is. Set `base_uri` and `timeout` on the
+> Guzzle client yourself (as shown above), and pick `api.bybit.com` vs
+> `api-testnet.bybit.com` explicitly.
 
 Base URLs (exported constants):
 
@@ -152,14 +169,14 @@ use Bybit\Exception\{
 
 try {
     $client->trade->createOrder('linear', 'BTCUSDT', 'Buy', 'Limit', '0.01', ['price' => '10000']);
-} catch (AuthException $e) {          // retCode 10003/10004/10005/... or HTTP 401/403
+} catch (AuthException $e) {          // retCode 10002/10003/10004/10005/10007/10009/10010/10029, or HTTP 401/403
     // bad key / bad sign / permission
-} catch (RateLimitException $e) {     // retCode 10006 / 10018 or HTTP 429
+} catch (RateLimitException $e) {     // retCode 10006/10018, or HTTP 429
     sleep(1);
 } catch (TimeoutException $e) {       // Guzzle ConnectException / RequestException(timeout)
 } catch (NetworkException $e) {       // Guzzle ConnectException (connection refused / DNS / SSL)
 } catch (ServerException $e) {        // HTTP 5xx w/ non-JSON body
-} catch (ClientException $e) {        // HTTP 4xx w/ non-JSON body (WAF, CDN, etc.)
+} catch (ClientException $e) {        // non-auth 4xx w/ non-JSON body (WAF, CDN, etc.)
 } catch (ParseException $e) {         // unrecognized body shape; $e->getBody() holds raw payload
 } catch (ApiException $e) {           // any other retCode != 0 — catch-all API error
 }
@@ -192,7 +209,7 @@ Every `ApiException` exposes `getRetCode()`, `getRetMsg()`, `getResult()`, `getT
 Every service method returns the raw parsed JSON as an associative `array`:
 
 ```php
-$response = $client->market->getKline('BTCUSDT', '1', ['category' => 'spot']);
+$response = $client->market->getKline('spot', 'BTCUSDT', '1');
 $response['retCode'];   // => 0
 $response['retMsg'];    // => 'OK'
 $response['result'];    // => ['category' => 'spot', 'symbol' => 'BTCUSDT', 'list' => [...]]
@@ -215,7 +232,7 @@ mappings:
 
 | Bybit V5 path                          | HTTP  | SDK method                                                          |
 | -------------------------------------- | ----- | ------------------------------------------------------------------- |
-| `/v5/market/kline`                     | GET   | `$client->market->getKline($symbol, $interval, $options)`           |
+| `/v5/market/kline`                     | GET   | `$client->market->getKline($category, $symbol, $interval, $options)` |
 | `/v5/market/tickers`                   | GET   | `$client->market->getTickers($category, $options)`                  |
 | `/v5/order/create`                     | POST  | `$client->trade->createOrder($category, $symbol, $side, $orderType, $qty, $options)` |
 | `/v5/order/cancel`                     | POST  | `$client->trade->cancelOrder($category, $symbol, $options)`         |

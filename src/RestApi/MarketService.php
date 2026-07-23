@@ -9,7 +9,7 @@ final class MarketService extends BaseService
     /**
      * Get ADL Alert status for a given symbol.
      *
-     * GET /v5/market/adlAlert
+     * GET /v5/market/adl-alert
      *
      * @param array{symbol?:string} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
@@ -17,7 +17,7 @@ final class MarketService extends BaseService
      */
     public function getAdlAlert(array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/adlAlert', $options);
+        return $this->session->publicRequest('GET', '/v5/market/adl-alert', $options);
     }
 
     /**
@@ -121,18 +121,19 @@ final class MarketService extends BaseService
      *
      * GET /v5/market/index-price-kline
      *
+     * @param string $category Product type — linear / inverse.
      * @param string $symbol
      * @param string $interval
-     * @param array{category?:string, start?:int, end?:int, limit?:int} $options
+     * @param array{start?:int, end?:int, limit?:int} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/market/index-kline
      */
-    public function getIndexPriceKline(string $symbol, string $interval, array $options = []): array
+    public function getIndexPriceKline(string $category, string $symbol, string $interval, array $options = []): array
     {
         return $this->session->publicRequest(
             'GET',
             '/v5/market/index-price-kline',
-            array_merge($options, ['symbol' => $symbol, 'interval' => $interval])
+            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'interval' => $interval])
         );
     }
 
@@ -195,18 +196,19 @@ final class MarketService extends BaseService
      *
      * GET /v5/market/kline
      *
+     * @param string $category Product type — spot / linear / inverse.
      * @param string $symbol
      * @param string $interval
-     * @param array{category?:string, start?:int, end?:int, limit?:int} $options
+     * @param array{start?:int, end?:int, limit?:int} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/market/kline
      */
-    public function getKline(string $symbol, string $interval, array $options = []): array
+    public function getKline(string $category, string $symbol, string $interval, array $options = []): array
     {
         return $this->session->publicRequest(
             'GET',
             '/v5/market/kline',
-            array_merge($options, ['symbol' => $symbol, 'interval' => $interval])
+            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'interval' => $interval])
         );
     }
 
@@ -215,18 +217,19 @@ final class MarketService extends BaseService
      *
      * GET /v5/market/mark-price-kline
      *
+     * @param string $category Product type — linear / inverse.
      * @param string $symbol
      * @param string $interval
-     * @param array{category?:string, start?:int, end?:int, limit?:int} $options
+     * @param array{start?:int, end?:int, limit?:int} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/market/mark-kline
      */
-    public function getMarkPriceKline(string $symbol, string $interval, array $options = []): array
+    public function getMarkPriceKline(string $category, string $symbol, string $interval, array $options = []): array
     {
         return $this->session->publicRequest(
             'GET',
             '/v5/market/mark-price-kline',
-            array_merge($options, ['symbol' => $symbol, 'interval' => $interval])
+            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'interval' => $interval])
         );
     }
 
@@ -315,18 +318,19 @@ final class MarketService extends BaseService
      *
      * GET /v5/market/premium-index-price-kline
      *
+     * @param string $category Product type — linear / inverse.
      * @param string $symbol
      * @param string $interval
-     * @param array{category?:string, start?:int, end?:int, limit?:int} $options
+     * @param array{start?:int, end?:int, limit?:int} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/market/premium-index-kline
      */
-    public function getPremiumIndexPriceKline(string $symbol, string $interval, array $options = []): array
+    public function getPremiumIndexPriceKline(string $category, string $symbol, string $interval, array $options = []): array
     {
         return $this->session->publicRequest(
             'GET',
             '/v5/market/premium-index-price-kline',
-            array_merge($options, ['symbol' => $symbol, 'interval' => $interval])
+            array_merge($options, ['category' => $category, 'symbol' => $symbol, 'interval' => $interval])
         );
     }
 

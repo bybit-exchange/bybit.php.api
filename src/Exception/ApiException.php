@@ -64,7 +64,13 @@ class ApiException extends BybitException
     public static function fromResponse(array $response, ?int $httpStatus = null): ApiException
     {
         $code = isset($response['retCode']) ? (int) $response['retCode'] : 0;
-        if (in_array($code, [10002, 10003, 10004, 10005, 10007, 10009, 10010, 10029], true)) {
+        // Auth/permission family per https://bybit-exchange.github.io/docs/v5/error :
+        //   10002 sync-window, 10003 invalid-key, 10004 sign-mismatch,
+        //   10005 permission-denied, 10007 user-auth-failed, 10008 expired-token,
+        //   10009 ip-blocked, 10010 unmatched-ip, 10017 gateway-401/403,
+        //   10022 blocked-jurisdiction, 10024 compliance-check-failed,
+        //   10028 forbidden, 10029 access-denied.
+        if (in_array($code, [10002, 10003, 10004, 10005, 10007, 10008, 10009, 10010, 10017, 10022, 10024, 10028, 10029], true)) {
             return new AuthException($response, $httpStatus);
         }
         if (in_array($code, [10006, 10018], true)) {

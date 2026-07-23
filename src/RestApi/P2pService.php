@@ -329,17 +329,17 @@ final class P2pService extends BaseService
      *
      * POST /v5/p2p/oss/upload_file
      *
-     * @param string $upload_file File to upload
-     * @param array $options
+     * @param string $uploadFile File to upload.
+     * @param array<string,mixed> $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
-    public function uploadChatFile(string $upload_file, array $options = []): array
+    public function uploadChatFile(string $uploadFile, array $options = []): array
     {
         return $this->session->signRequest(
             'POST',
             '/v5/p2p/oss/upload_file',
-            array_merge($options, ['upload_file' => $upload_file])
+            array_merge($options, ['upload_file' => $uploadFile])
         );
     }
 }

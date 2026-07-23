@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace Bybit;
 
 use Bybit\Exception\ApiException;
+use Bybit\Exception\AuthException;
 use Bybit\Exception\ClientException as BybitClientException;
 use Bybit\Exception\ConfigurationException;
 use Bybit\Exception\NetworkException;
 use Bybit\Exception\ParseException;
+use Bybit\Exception\RateLimitException;
 use Bybit\Exception\ServerException;
 use Bybit\Exception\TimeoutException;
 use Bybit\Exception\TransportException;
+use Bybit\Util\WireKeys;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ConnectException;
@@ -52,7 +55,7 @@ final class Session
      * Public unsigned endpoint — no X-BAPI-* headers attached.
      *
      * @param array<mixed,mixed>|null $params Query params for GET/DELETE, body for POST/PUT/PATCH.
-     * @return array<string,mixed>
+     * @return BybitEnvelope
      */
     public function publicRequest(string $method, string $path, ?array $params = null): array
     {
@@ -63,7 +66,7 @@ final class Session
      * Signed endpoint — X-BAPI-* headers computed via Authentication.
      *
      * @param array<mixed,mixed>|null $params Query params for GET/DELETE, body for POST/PUT/PATCH.
-     * @return array<string,mixed>
+     * @return BybitEnvelope
      */
     public function signRequest(string $method, string $path, ?array $params = null): array
     {
@@ -77,7 +80,10 @@ final class Session
     private function dispatch(string $method, string $path, ?array $params, bool $signed): array
     {
         $method = strtoupper($method);
-        $clean = $this->compact($params);
+        // WireKeys::camelize aliases snake_case caller keys (order_type => orderType)
+        // BEFORE we canonicalize for signing — Bybit V5 expects camelCase on the
+        // wire, and the payload signed must match the wire byte-for-byte.
+        $clean = WireKeys::camelize($this->compact($params));
         $usesQuery = in_array($method, self::PAYLOAD_QUERY_METHODS, true);
 
         $queryStr = ($clean && $usesQuery) ? $this->sortAndEncode($clean) : '';
@@ -135,7 +141,23 @@ final class Session
         $flat = [];
         foreach ($params as $k => $v) {
             if (is_array($v)) {
+                // Only flat lists (repeated key form) are supported on Bybit V5
+                // GET/DELETE. A nested associative array or a list-of-objects
+                // would silently mis-encode (inner keys dropped, or literal
+                // 'Array' emitted) — throw a clear error at the source instead.
+                if (!array_is_list($v)) {
+                    throw new \InvalidArgumentException(sprintf(
+                        'Nested associative array under param "%s" is not supported on GET/DELETE — pass a flat list or move the payload to a POST body.',
+                        (string) $k
+                    ));
+                }
                 foreach ($v as $inner) {
+                    if (is_array($inner)) {
+                        throw new \InvalidArgumentException(sprintf(
+                            'List-of-arrays under param "%s" is not supported on GET/DELETE.',
+                            (string) $k
+                        ));
+                    }
                     $flat[] = [(string) $k, self::scalarToWire($inner)];
                 }
             } else {
@@ -189,7 +211,10 @@ final class Session
     private function buildHeaders(bool $signed, bool $usesQuery, string $queryStr, string $bodyStr): array
     {
         $h = [];
-        if ($bodyStr !== '') {
+        // Body-carrying verbs (POST/PUT/PATCH) always advertise application/json
+        // even when the body is empty — matches sibling connectors and future-proofs
+        // against WAF hardening that rejects unlabeled POST bodies.
+        if (!$usesQuery) {
             $h['Content-Type'] = 'application/json';
         }
         if (!$signed) {
@@ -244,6 +269,22 @@ final class Session
             if ($status >= 500) {
                 throw new ServerException(sprintf('Bybit server error (status=%d): %s', $status, $preview));
             }
+            // Non-envelope 4xx (WAF / CDN / edge auth) — route by status so
+            // catch(AuthException) / catch(RateLimitException) callers still
+            // get the right class even when the response never reached Bybit's
+            // application layer.
+            if ($status === 401 || $status === 403) {
+                throw new AuthException(
+                    ['retMsg' => sprintf('Bybit auth error (HTTP %d): %s', $status, $preview)],
+                    $status
+                );
+            }
+            if ($status === 429) {
+                throw new RateLimitException(
+                    ['retMsg' => sprintf('Bybit rate limit (HTTP %d): %s', $status, $preview)],
+                    $status
+                );
+            }
             if ($status >= 400) {
                 throw new BybitClientException(sprintf('Bybit client error (status=%d): %s', $status, $preview));
             }
@@ -253,7 +294,7 @@ final class Session
                 $status
             );
         }
-        if ((int) $body['retCode'] === 0) {
+        if ($body['retCode'] === 0) {
             /** @var array<string,mixed> $body */
             return $body;
         }

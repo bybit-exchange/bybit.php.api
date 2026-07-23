@@ -11,19 +11,19 @@ final class UserService extends BaseService
      *
      * POST /v5/user/create-sub-api
      *
-     * @param int $subuid Sub-account user id
-     * @param int $readOnly_ 0: read-write, 1: read-only
-     * @param array $permissions Permissions granted to the API key
+     * @param int $subuid Sub-account user id.
+     * @param int $readOnly 0: read-write, 1: read-only.
+     * @param array $permissions Permissions granted to the API key.
      * @param array{ips?:string, note?:string} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/user/create-subuid-apikey
      */
-    public function createSubApiKey(int $subuid, int $readOnly_, array $permissions, array $options = []): array
+    public function createSubApiKey(int $subuid, int $readOnly, array $permissions, array $options = []): array
     {
         return $this->session->signRequest(
             'POST',
             '/v5/user/create-sub-api',
-            array_merge($options, ['subuid' => $subuid, 'readOnly' => $readOnly_, 'permissions' => $permissions])
+            array_merge($options, ['subuid' => $subuid, 'readOnly' => $readOnly, 'permissions' => $permissions])
         );
     }
 
@@ -280,18 +280,18 @@ final class UserService extends BaseService
      *
      * POST /v5/user/update-sub-api
      *
-     * @param int $subuid Sub-account UID
-     * @param int $readOnly_ 0: read-write, 1: read-only
+     * @param int $subuid Sub-account UID.
+     * @param int $readOnly 0: read-write, 1: read-only.
      * @param array{apikey?:string, ips?:string, permissions?:array, note?:string} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/user/modify-sub-apikey
      */
-    public function updateSubApiKey(int $subuid, int $readOnly_, array $options = []): array
+    public function updateSubApiKey(int $subuid, int $readOnly, array $options = []): array
     {
         return $this->session->signRequest(
             'POST',
             '/v5/user/update-sub-api',
-            array_merge($options, ['subuid' => $subuid, 'readOnly' => $readOnly_])
+            array_merge($options, ['subuid' => $subuid, 'readOnly' => $readOnly])
         );
     }
 }

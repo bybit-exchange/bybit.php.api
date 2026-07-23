@@ -67,6 +67,20 @@ final class Client
         // gen-sdk-php:client-inits:end
     }
 
+    /**
+     * Escape hatch for endpoints not yet wrapped by a service class. Signs and
+     * dispatches a raw request via the same Session pipeline the services use.
+     *
+     * @param array<mixed,mixed>|null $params
+     * @return BybitEnvelope
+     */
+    public function raw(string $method, string $path, ?array $params = null, bool $signed = true): array
+    {
+        return $signed
+            ? $this->session->signRequest($method, $path, $params)
+            : $this->session->publicRequest($method, $path, $params);
+    }
+
     public function __toString(): string
     {
         return sprintf(

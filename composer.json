@@ -1,5 +1,5 @@
 {
-    "name": "bybit/bybit-connector-php",
+    "name": "bybit-exchange/bybit-connector-php",
     "description": "Official Bybit V5 REST API connector for PHP — typed method signatures, HMAC-SHA256 signing, typed exception hierarchy, Guzzle-based transport.",
     "type": "library",
     "license": "MIT",

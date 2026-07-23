@@ -7,19 +7,29 @@ namespace Bybit;
 use GuzzleHttp\ClientInterface;
 
 /**
- * Runtime configuration for a Client. Instantiate, set fields, pass to Client.
- * Credentials are redacted from every default PHP serialization pathway
+ * Runtime configuration for a Client. Instantiate with named arguments, pass to
+ * Client. Credentials are redacted from every default PHP serialization pathway
  * (__debugInfo / __toString / jsonSerialize) so a stray dump/log doesn't leak.
+ *
+ * Fields fall into two groups:
+ *  - Live (public, writable): apiKey, apiSecret, recvWindow — Session reads
+ *    these on every request, so rotating credentials mid-run works.
+ *  - Snapshot (readonly): testnet, baseUrl, timeout, httpClient — captured by
+ *    Session at construction time. Set them via constructor args; post-hoc
+ *    assignment is a PHP Error.
  */
 final class Configuration implements \JsonSerializable
 {
-    public ?string $apiKey = null;
-    public ?string $apiSecret = null;
-    public bool $testnet = false;
-    public ?string $baseUrl = null;
-    public string $recvWindow = Bybit::DEFAULT_RECV_WINDOW;
-    public int $timeout = Bybit::DEFAULT_TIMEOUT;
-    public ?ClientInterface $httpClient = null;
+    public function __construct(
+        public ?string $apiKey = null,
+        public ?string $apiSecret = null,
+        public string $recvWindow = Bybit::DEFAULT_RECV_WINDOW,
+        public readonly bool $testnet = false,
+        public readonly ?string $baseUrl = null,
+        public readonly int $timeout = Bybit::DEFAULT_TIMEOUT,
+        public readonly ?ClientInterface $httpClient = null,
+    ) {
+    }
 
     public function resolvedBaseUrl(): string
     {

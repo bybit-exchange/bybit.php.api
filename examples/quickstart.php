@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 // End-to-end quickstart — public + signed + full exception matrix.
-// Run with: BYBIT_KEY=... BYBIT_SECRET=... php examples/quickstart.php
+// Run with: BYBIT_TESTNET_KEY=... BYBIT_TESTNET_SECRET=... php examples/quickstart.php
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -20,10 +20,11 @@ use Bybit\Exception\{
     TimeoutException,
 };
 
-$config = new Configuration();
-$config->apiKey    = getenv('BYBIT_KEY') ?: null;
-$config->apiSecret = getenv('BYBIT_SECRET') ?: null;
-$config->testnet   = true;
+$config = new Configuration(
+    apiKey: getenv('BYBIT_TESTNET_KEY') ?: null,
+    apiSecret: getenv('BYBIT_TESTNET_SECRET') ?: null,
+    testnet: true,
+);
 
 $client = new Client($config);
 
@@ -31,7 +32,7 @@ echo '--- server time ---' . PHP_EOL;
 print_r($client->market->getServerTime());
 
 echo '--- kline (public) ---' . PHP_EOL;
-print_r($client->market->getKline('BTCUSDT', '1', ['category' => 'spot', 'limit' => 5]));
+print_r($client->market->getKline('spot', 'BTCUSDT', '1', ['limit' => 5]));
 
 echo '--- fee rate (signed) ---' . PHP_EOL;
 try {
