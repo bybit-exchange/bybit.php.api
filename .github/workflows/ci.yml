@@ -70,8 +70,8 @@ jobs:
         run: |
           php -r '
             require "vendor/autoload.php";
-            if (!defined("Bybit\\\\Bybit::VERSION")) {
-              throw new RuntimeException("Bybit\\\\Bybit::VERSION not defined");
+            if (!defined("Bybit\\Bybit::VERSION")) {
+              throw new RuntimeException("Bybit\\Bybit::VERSION not defined");
             }
             $cli = new Bybit\Client(new Bybit\Configuration());
             if (!$cli instanceof Bybit\Client) {
