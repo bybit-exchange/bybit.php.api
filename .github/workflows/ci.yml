@@ -61,7 +61,7 @@ jobs:
         run: vendor/bin/phpstan analyse --no-progress
 
       - name: PHPUnit
-        run: vendor/bin/phpunit --testdox
+        run: vendor/bin/phpunit --testdox --no-coverage
 
       # Smoke: autoload the package and construct a Client. Catches broken
       # PSR-4 mapping / missing class / class-name typo BEFORE any consumer
