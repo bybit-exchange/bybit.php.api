@@ -9,7 +9,9 @@ final class MarketService extends BaseService
     /**
      * Get ADL Alert status for a given symbol.
      *
-     * GET /v5/market/adl-alert
+     * GET /v5/market/adlAlert — the actual endpoint path uses camelCase even
+     * though the docs page slug is "adl-alert". Testnet 404s on the hyphenated
+     * form; verified via smoke against api-testnet.bybit.com.
      *
      * @param array{symbol?:string} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
@@ -17,7 +19,7 @@ final class MarketService extends BaseService
      */
     public function getAdlAlert(array $options = []): array
     {
-        return $this->session->publicRequest('GET', '/v5/market/adl-alert', $options);
+        return $this->session->publicRequest('GET', '/v5/market/adlAlert', $options);
     }
 
     /**

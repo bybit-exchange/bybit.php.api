@@ -395,6 +395,7 @@ final class SessionTest extends TestCase
     public static function apiExceptionDispatchProvider(): array
     {
         return [
+            [-2015, AuthException::class],
             [10002, AuthException::class],
             [10003, AuthException::class],
             [10004, AuthException::class],

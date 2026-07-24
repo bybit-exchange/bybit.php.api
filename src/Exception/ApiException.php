@@ -70,7 +70,10 @@ class ApiException extends BybitException
         //   10009 ip-blocked, 10010 unmatched-ip, 10017 gateway-401/403,
         //   10022 blocked-jurisdiction, 10024 compliance-check-failed,
         //   10028 forbidden, 10029 access-denied.
-        if (in_array($code, [10002, 10003, 10004, 10005, 10007, 10008, 10009, 10010, 10017, 10022, 10024, 10028, 10029], true)) {
+        //   -2015 legacy account-service auth failure (observed on
+        //   /v5/account/query-instruments — Bybit's account-service pathway
+        //   still surfaces code alongside 10005).
+        if (in_array($code, [-2015, 10002, 10003, 10004, 10005, 10007, 10008, 10009, 10010, 10017, 10022, 10024, 10028, 10029], true)) {
             return new AuthException($response, $httpStatus);
         }
         if (in_array($code, [10006, 10018], true)) {

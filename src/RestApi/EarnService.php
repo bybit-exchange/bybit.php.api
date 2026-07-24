@@ -149,7 +149,7 @@ final class EarnService extends BaseService
      *
      * GET /v5/earn/advance/double-win-leverage
      *
-     * @param int $productId Product ID
+     * @param string $productId Product ID (Bybit returns product IDs as strings).
      * @param string $initialPrice Initial price
      * @param string $lowerPrice Lower price bound
      * @param string $upperPrice Upper price bound
@@ -157,7 +157,7 @@ final class EarnService extends BaseService
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
-    public function getDoubleWinLeverage(int $productId, string $initialPrice, string $lowerPrice, string $upperPrice, array $options = []): array
+    public function getDoubleWinLeverage(string $productId, string $initialPrice, string $lowerPrice, string $upperPrice, array $options = []): array
     {
         return $this->session->signRequest(
             'GET',
@@ -433,12 +433,12 @@ final class EarnService extends BaseService
      *
      * GET /v5/earn/rwa/nav-chart
      *
-     * @param int $productId Product ID
+     * @param string $productId Product ID (Bybit returns product IDs as strings).
      * @param array{startTime?:int, endTime?:int} $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
-    public function getRwaNavChart(int $productId, array $options = []): array
+    public function getRwaNavChart(string $productId, array $options = []): array
     {
         return $this->session->publicRequest(
             'GET',
@@ -649,14 +649,14 @@ final class EarnService extends BaseService
      * POST /v5/earn/position/modify
      *
      * @param string $category Product category
-     * @param int $productId Product ID
-     * @param int $positionId Position ID
-     * @param int $autoReinvest Auto reinvest flag
+     * @param string $productId Product ID (Bybit returns product IDs as strings).
+     * @param string $positionId Position ID (Bybit returns position IDs as strings).
+     * @param int $autoReinvest Auto reinvest flag.
      * @param array $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
-    public function modifyEarnPosition(string $category, int $productId, int $positionId, int $autoReinvest, array $options = []): array
+    public function modifyEarnPosition(string $category, string $productId, string $positionId, int $autoReinvest, array $options = []): array
     {
         return $this->session->signRequest(
             'POST',
@@ -671,7 +671,7 @@ final class EarnService extends BaseService
      * POST /v5/earn/advance/place-order
      *
      * @param string $category Product category
-     * @param int $productId Product ID
+     * @param string $productId Product ID (Bybit returns product IDs as strings).
      * @param string $orderType Order type
      * @param string $amount Order amount
      * @param string $accountType Account type
@@ -681,7 +681,7 @@ final class EarnService extends BaseService
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
-    public function placeAdvanceEarnOrder(string $category, int $productId, string $orderType, string $amount, string $accountType, string $coin, string $orderLinkId, array $options = []): array
+    public function placeAdvanceEarnOrder(string $category, string $productId, string $orderType, string $amount, string $accountType, string $coin, string $orderLinkId, array $options = []): array
     {
         return $this->session->signRequest(
             'POST',
@@ -744,7 +744,7 @@ final class EarnService extends BaseService
      *
      * POST /v5/earn/rwa/place-order
      *
-     * @param int $productId Product ID
+     * @param string $productId Product ID (Bybit returns product IDs as strings).
      * @param string $orderType Order type (Stake or Redeem)
      * @param string $coin Coin name
      * @param string $orderLinkId User-defined order link ID
@@ -752,7 +752,7 @@ final class EarnService extends BaseService
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
-    public function placeRwaOrder(int $productId, string $orderType, string $coin, string $orderLinkId, array $options = []): array
+    public function placeRwaOrder(string $productId, string $orderType, string $coin, string $orderLinkId, array $options = []): array
     {
         return $this->session->signRequest(
             'POST',
@@ -868,15 +868,15 @@ final class EarnService extends BaseService
      * POST /v5/earn/pwm/fund-transfer
      *
      * @param string $transferId Client-supplied transfer id
-     * @param int $fromUserId Source user id
-     * @param int $toUserId Destination user id
+     * @param string $fromUserId Source user id (Bybit UIDs are strings).
+     * @param string $toUserId Destination user id (Bybit UIDs are strings).
      * @param string $amount Transfer amount
      * @param string $coin Coin to transfer
      * @param array $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
-    public function pwmFundTransfer(string $transferId, int $fromUserId, int $toUserId, string $amount, string $coin, array $options = []): array
+    public function pwmFundTransfer(string $transferId, string $fromUserId, string $toUserId, string $amount, string $coin, array $options = []): array
     {
         return $this->session->signRequest(
             'POST',

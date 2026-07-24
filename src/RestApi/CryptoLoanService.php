@@ -326,15 +326,15 @@ final class CryptoLoanService extends BaseService
      *
      * POST /v5/crypto-loan-fixed/repay-collateral
      *
-     * @param int $loanId Loan ID
-     * @param string $loanCurrency Loan currency
-     * @param string $collateralCoin Collateral coin
-     * @param string $amount Amount to repay with collateral
+     * @param string $loanId Loan ID (Bybit returns loan IDs as strings; matches renewFixed / fullyRepayCryptoLoanFixed).
+     * @param string $loanCurrency Loan currency.
+     * @param string $collateralCoin Collateral coin.
+     * @param string $amount Amount to repay with collateral.
      * @param array $options
      * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
      * @see https://bybit-exchange.github.io/docs/v5/intro
      */
-    public function repayFixedCollateral(int $loanId, string $loanCurrency, string $collateralCoin, string $amount, array $options = []): array
+    public function repayFixedCollateral(string $loanId, string $loanCurrency, string $collateralCoin, string $amount, array $options = []): array
     {
         return $this->session->signRequest(
             'POST',
