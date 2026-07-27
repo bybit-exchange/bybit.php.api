@@ -1,5 +1,11 @@
 # bybit-connector-php
 
+[![Packagist version](https://img.shields.io/packagist/v/bybit-exchange/bybit-connector-php.svg)](https://packagist.org/packages/bybit-exchange/bybit-connector-php)
+[![PHP ≥ 8.1](https://img.shields.io/badge/php-%E2%89%A58.1-brightgreen.svg)](https://www.php.net)
+[![PHPStan level 6](https://img.shields.io/badge/PHPStan-level%206-777bb4.svg)](https://phpstan.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![CI](https://github.com/bybit-exchange/bybit.php.api/actions/workflows/ci.yml/badge.svg)](https://github.com/bybit-exchange/bybit.php.api/actions/workflows/ci.yml)
+
 Official lightweight PHP connector for the [Bybit V5 REST API](https://bybit-exchange.github.io/docs/v5/intro).
 
 `bybit-connector-php` wraps the Bybit V5 HTTP endpoints as a set of typed PHP methods with explicit required arguments plus an `array $options = []` catch-all for optional parameters. Its goal is the same as [`pybit`](https://github.com/bybit-exchange/pybit) on the Python side and [`bybit-connector-ruby`](https://github.com/bybit-exchange/bybit.ruby.api) on the Ruby side: an easy-to-use, high-performance connector with a small dependency footprint.
