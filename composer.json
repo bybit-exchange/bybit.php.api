@@ -1,0 +1,56 @@
+{
+    "name": "bybit-exchange/bybit-connector-php",
+    "description": "Official Bybit V5 REST API connector for PHP — typed method signatures, HMAC-SHA256 signing, typed exception hierarchy, Guzzle-based transport.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "bybit",
+        "crypto",
+        "exchange",
+        "trading",
+        "api",
+        "v5",
+        "rest"
+    ],
+    "homepage": "https://github.com/bybit-exchange/bybit.php.api",
+    "authors": [
+        {
+            "name": "Bybit",
+            "homepage": "https://www.bybit.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5",
+        "phpstan/phpstan": "^1.10",
+        "friendsofphp/php-cs-fixer": "^3.50",
+        "mockery/mockery": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bybit\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bybit\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-text",
+        "stan": "phpstan analyse",
+        "cs-fix": "php-cs-fixer fix",
+        "cs-check": "php-cs-fixer fix --dry-run --diff"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {}
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

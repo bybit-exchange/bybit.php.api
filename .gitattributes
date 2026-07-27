@@ -1,0 +1,13 @@
+# Files excluded from `composer archive` / Packagist distribution.
+# Consumers installing via `composer require` only get src/ + composer.json
+# + LICENSE + README + CHANGELOG — dev tooling stays in the repo.
+
+/tests                      export-ignore
+/examples                   export-ignore
+/.github                    export-ignore
+/phpunit.xml.dist           export-ignore
+/phpstan.neon.dist          export-ignore
+/.php-cs-fixer.dist.php     export-ignore
+/.php-version               export-ignore
+/.gitignore                 export-ignore
+/.gitattributes             export-ignore

@@ -1,0 +1,19 @@
+parameters:
+    level: 6
+    paths:
+        - src
+    excludePaths:
+        - vendor
+    # Reusable type aliases. The Bybit V5 response envelope (retCode / retMsg /
+    # result / retExtInfo / time) is the return shape of every service method —
+    # promote it to a name so docblocks stay in sync with the actual contract.
+    # `Bybit\Session::normalizeLegacyEnvelope` guarantees this shape even for
+    # snake_case P2P responses. `result` and `retExtInfo` are `mixed` because
+    # Bybit's spec varies per-endpoint (array / object / empty stdClass).
+    typeAliases:
+        BybitEnvelope: 'array{retCode:int, retMsg:string, result:mixed, retExtInfo:mixed, time:int}'
+    # A future pass could annotate every service method's `array $options` and
+    # `array` return with `array<string,mixed>`; until then, silence the generic
+    # complaint uniformly. Runtime `array` typehints still enforce array-ness.
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false

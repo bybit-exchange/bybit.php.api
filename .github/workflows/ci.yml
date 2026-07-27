@@ -1,0 +1,199 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: PHP ${{ matrix.php }} — install + cs-check + phpstan + phpunit + smoke
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Matches composer.json `php: >=8.1`. 8.1 is our floor; 8.3 is
+        # current stable; 8.4 is latest.
+        php: ['8.1', '8.2', '8.3', '8.4']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: json, mbstring, curl, openssl
+          coverage: none
+          tools: composer:v2
+
+      - name: composer.json → Packagist only (no private-registry drift)
+        run: |
+          # composer.json must not declare arbitrary `repositories` — that
+          # bypasses Packagist. `type: composer` at packagist.org is the
+          # single default we allow.
+          if command -v jq >/dev/null 2>&1; then
+            bad=$(jq -c '.repositories // [] | map(select(.type != null and .type != "composer"))' composer.json)
+            if [ "$bad" != "[]" ] && [ -n "$bad" ]; then
+              echo "::error::composer.json has non-Packagist repositories: $bad"
+              exit 1
+            fi
+          fi
+
+      - name: Cache composer deps
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: vendor
+          key: composer-${{ matrix.php }}-${{ hashFiles('composer.json', 'composer.lock') }}
+          restore-keys: |
+            composer-${{ matrix.php }}-
+
+      - name: composer install
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: PHP-CS-Fixer (dry-run)
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff --no-interaction
+
+      - name: PHPStan
+        run: vendor/bin/phpstan analyse --no-progress
+
+      - name: PHPUnit
+        run: vendor/bin/phpunit --testdox --no-coverage
+
+      # Smoke: autoload the package and construct a Client. Catches broken
+      # PSR-4 mapping / missing class / class-name typo BEFORE any consumer
+      # sees them. Analogous to the JS / Ruby equivalents.
+      - name: Load smoke (autoload + Client construction)
+        run: |
+          php -r '
+            require "vendor/autoload.php";
+            if (!defined("Bybit\\Bybit::VERSION")) {
+              throw new RuntimeException("Bybit\\Bybit::VERSION not defined");
+            }
+            $cli = new Bybit\Client(new Bybit\Configuration());
+            if (!$cli instanceof Bybit\Client) {
+              throw new RuntimeException("Client construction failed");
+            }
+            printf("smoke OK: bybit-connector-php %s on PHP %s\n", Bybit\Bybit::VERSION, PHP_VERSION);
+          '
+
+  lowest-deps:
+    # Verify the SDK still builds and tests pass against the LOWEST versions
+    # of every `require` constraint (guzzle ^7.5 → 7.5.0, etc.). The regular
+    # `build` job resolves highest-compatible and would silently start using
+    # a Guzzle 7.6+-only API without bumping the constraint, which would break
+    # users pinned to 7.5.
+    name: PHP 8.1 — prefer-lowest dep resolve + phpunit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+        with:
+          php-version: '8.1'
+          extensions: json, mbstring, curl, openssl
+          coverage: none
+          tools: composer:v2
+
+      - name: composer update --prefer-lowest
+        run: composer update --no-interaction --no-progress --prefer-dist --prefer-lowest --prefer-stable
+
+      - name: PHPUnit
+        run: vendor/bin/phpunit --testdox --no-coverage
+
+  audit:
+    name: composer audit (advisories on runtime deps)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+
+      - name: composer install
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      # `composer audit` (Composer 2.4+) queries the FriendsOfPHP / Packagist
+      # advisory database and exits non-zero on any advisory. Runtime deps
+      # only (not require-dev) via `--no-dev`.
+      - name: composer audit --no-dev
+        run: composer audit --no-dev
+
+  secret-scan:
+    name: gitleaks (CLI)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      # Run the gitleaks binary directly. The `gitleaks/gitleaks-action@v2`
+      # wrapper requires a paid license for organizations and pins a deprecated
+      # node20 runtime — the underlying MIT-licensed CLI has neither restriction.
+      - name: Install gitleaks
+        env:
+          GITLEAKS_VERSION: '8.21.2'
+        run: |
+          set -eu
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            | tar -xz -C /usr/local/bin gitleaks
+          gitleaks version
+
+      - name: Scan for secrets
+        run: gitleaks detect --source . --redact --verbose --exit-code 1 --no-banner
+
+  pack-check:
+    name: composer archive dry-run (LICENSE / README / src present, no test leak)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+
+      - name: composer install
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Build archive
+        run: composer archive --format=tar --dir=/tmp/pack --file=pack
+
+      - name: Verify archive contents
+        run: |
+          set -eu
+          echo "Inspecting /tmp/pack/pack.tar"
+          tar -tf /tmp/pack/pack.tar | sort > /tmp/pack-files.txt
+          echo "--- packed files ---"
+          cat /tmp/pack-files.txt
+
+          # Required entries
+          for need in LICENSE README.md CHANGELOG.md composer.json src/Bybit.php src/Configuration.php src/Client.php src/Session.php src/Authentication.php src/RestApi/BaseService.php; do
+            if ! grep -qx "$need" /tmp/pack-files.txt; then
+              echo "::error::Missing from archive: $need"
+              exit 1
+            fi
+          done
+
+          # Files that must NEVER ship in the distributed package. `composer archive`
+          # respects `.gitattributes` `export-ignore`; this is a belt-and-suspenders
+          # regression guard.
+          for bad in tests phpunit.xml.dist phpstan.neon.dist .php-cs-fixer.dist.php .github .git; do
+            if grep -qE "^${bad}(/|$)" /tmp/pack-files.txt; then
+              echo "::error::Archive contains unexpected entry: $bad"
+              exit 1
+            fi
+          done
+          echo "pack check OK"
