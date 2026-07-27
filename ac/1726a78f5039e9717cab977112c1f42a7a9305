@@ -1,0 +1,23 @@
+README.md
+  5a1953705252d57f 268-269
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2-bit.10+672fbf0",
+  "base_commit_sha": "ac1726a78f5039e9717cab977112c1f42a7a9305",
+  "prompts": {
+    "5a1953705252d57f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3de877c0-5707-483a-ab44-860c97e21737",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "doris-xiao-bybit",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 1,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  }
+}
