@@ -265,7 +265,8 @@ do {
 ```
 
 The same pattern works for `getClosedPnl`, `getTransactionLog`,
-`getExecutionList`, and every other paginated endpoint.
+`$client->trade->getHistory()` (execution list), and every other paginated
+endpoint.
 
 ## Signing Invariant (for the curious)
 
