@@ -1,0 +1,56 @@
+tests/RestApiContractTest.php
+  s_a751f602a54ff7::t_8dfe9ff8a9d93f 18-31,58-63
+  s_a751f602a54ff7::t_76d233266a484f 1-17,32-57,64-85
+src/RestApi/EarnService.php
+  s_a751f602a54ff7::t_9d184af080d417 1300-1333
+src/RestApi/UserService.php
+  s_a751f602a54ff7::t_9d184af080d417 297-311
+src/RestApi/CryptoLoanService.php
+  s_a751f602a54ff7::t_9d184af080d417 449-525
+CHANGELOG.md
+  s_a751f602a54ff7::t_5211c8aff8438b 2-69
+src/RestApi/AccountService.php
+  s_a751f602a54ff7::t_9d184af080d417 435
+  s_a751f602a54ff7::t_71e4d75ee2ecf9 427-434,436-488
+src/RestApi/PositionService.php
+  s_a751f602a54ff7::t_9d184af080d417 239-261
+src/RestApi/SpotMarginService.php
+  s_a751f602a54ff7::t_9d184af080d417 77,94,116,134,148,163,182,201,219,234,253,272,294,313,331,346
+  s_a751f602a54ff7::t_71e4d75ee2ecf9 69-76,78-93,95-115,117-133,135-147,149-162,164-181,183-200,202-218,220-233,235-252,254-271,273-293,295-312,314-330,332-345,347-356
+src/RestApi/AssetService.php
+  s_a751f602a54ff7::t_5211c8aff8438b 41-48,50-62,64-76,78-93,95-112,114-130,132-145,147-168,170-190,192-209,211-227,229-241,243-258,260-277,279-296,298-316,318-334,336-349,351-367,369-386,388-421,423-458,460-478,480-496,498-510,512-526,528-544,546-565,567-584,586-611,613-629,631-643,645-657,659-672,674-683
+  s_a751f602a54ff7::t_9d184af080d417 49,63,77,94,113,131,146,169,191,210,228,242,259,278,297,317,335,350,368,387,422,459,479,497,511,527,545,566,585,612,630,644,658,673
+src/Bybit.php
+  s_14731aa45014cc::t_12e105cf4d74b8 12
+src/RestApi/MarketService.php
+  s_14731aa45014cc::t_e5cb07e4360316 429-443
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2-bit.2+419f699",
+  "base_commit_sha": "4d5f9d5fc8591192b1dd64c03bab4906e53c4006",
+  "prompts": {},
+  "humans": {
+    "h_2077f5731cd72e": {
+      "author": "doris-xiao-bybit <doris.xiao@bybit.com>"
+    }
+  },
+  "sessions": {
+    "s_14731aa45014cc": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a11a25-078f-7d13-b8c5-a1f8f61777b2",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "doris-xiao-bybit <doris.xiao@bybit.com>"
+    },
+    "s_a751f602a54ff7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a11ffb-c07f-73b2-907c-8b9d736fd393",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "doris-xiao-bybit <doris.xiao@bybit.com>"
+    }
+  }
+}
