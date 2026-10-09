@@ -428,6 +428,9 @@ final class AccountService extends BaseService
     /**
      * Apply demo funds
      *
+     * Demo Trading only. Configure `baseUrl: 'https://api-demo.bybit.com'`;
+     * `testnet: true` uses api-testnet.bybit.com and cannot call this endpoint.
+     *
      * POST /v5/account/demo-apply-money
      *
      * @param array $options
