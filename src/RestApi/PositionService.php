@@ -236,4 +236,27 @@ final class PositionService extends BaseService
             array_merge($options, ['category' => $category, 'mode' => $mode])
         );
     }
+
+    /**
+     * Get Futures Leverage
+     *
+     * GET /v5/position/symbol-info
+     *
+     * @param string $category Product type:
+- `linear`: USDT perpetual, USDC contract
+- `inverse`: Inverse perpetual, Inverse futures
+
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/position/batch-lvg
+     */
+    public function getSymbolInfo(string $category, array $options = []): array
+    {
+        return $this->session->signRequest(
+            'GET',
+            '/v5/position/symbol-info',
+            array_merge($options, ['category' => $category])
+        );
+    }
+
 }

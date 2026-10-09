@@ -426,4 +426,19 @@ final class MarketService extends BaseService
             array_merge($options, ['category' => $category])
         );
     }
+
+    /**
+     * Get Option Base Coins
+     *
+     * GET /v5/market/option-base-coins
+     *
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/market/option-base-coins
+     */
+    public function getOptionBaseCoins(array $options = []): array
+    {
+        return $this->session->publicRequest('GET', '/v5/market/option-base-coins', $options);
+    }
+
 }

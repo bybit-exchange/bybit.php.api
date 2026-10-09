@@ -294,4 +294,19 @@ final class UserService extends BaseService
             array_merge($options, ['subuid' => $subuid, 'readOnly' => $readOnly])
         );
     }
+
+    /**
+     * Query Referral Code
+     *
+     * GET /v5/user/invitation/code
+     *
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/user/referral-code
+     */
+    public function queryReferralCode(array $options = []): array
+    {
+        return $this->session->signRequest('GET', '/v5/user/invitation/code', $options);
+    }
+
 }

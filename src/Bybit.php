@@ -9,7 +9,7 @@ namespace Bybit;
  */
 final class Bybit
 {
-    public const VERSION = '0.1.0';
+    public const VERSION = '0.1.1';
 
     public const BASE_URL_MAINNET    = 'https://api.bybit.com';
     public const BASE_URL_TESTNET    = 'https://api-testnet.bybit.com';
