@@ -1,0 +1,20 @@
+src/RestApi/AccountService.php
+  s_a751f602a54ff7::t_bc9a54b39641dc 431-432
+  s_a751f602a54ff7::t_0702b4300774f8 430
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2-bit.2+419f699",
+  "base_commit_sha": "45d9c7e0d49a013fde4240cd6ffa25937de4b184",
+  "prompts": {},
+  "sessions": {
+    "s_a751f602a54ff7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a11ffb-c07f-73b2-907c-8b9d736fd393",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "doris-xiao-bybit <doris.xiao@bybit.com>"
+    }
+  }
+}
