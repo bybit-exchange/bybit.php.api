@@ -1297,4 +1297,38 @@ final class EarnService extends BaseService
             array_merge($options, ['productId' => $productId, 'category' => $category, 'positionId' => $positionId, 'status' => $status])
         );
     }
+
+    /**
+     * Get Auto Savings Settings
+     *
+     * GET /v5/earn/flexible-saving/auto-savings
+     *
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/finance/earn/flexible-saving/auto-savings
+     */
+    public function listAutoSavings(array $options = []): array
+    {
+        return $this->session->signRequest('GET', '/v5/earn/flexible-saving/auto-savings', $options);
+    }
+
+    /**
+     * Edit Auto Savings Settings
+     *
+     * POST /v5/earn/flexible-saving/auto-savings
+     *
+     * @param bool $isSelected Whether to enable auto savings
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/finance/earn/flexible-saving/auto-savings
+     */
+    public function editEarnAutoSavings(bool $isSelected, array $options = []): array
+    {
+        return $this->session->signRequest(
+            'POST',
+            '/v5/earn/flexible-saving/auto-savings',
+            array_merge($options, ['isSelected' => $isSelected])
+        );
+    }
+
 }

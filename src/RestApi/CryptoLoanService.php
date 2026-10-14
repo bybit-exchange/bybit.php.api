@@ -446,4 +446,81 @@ final class CryptoLoanService extends BaseService
             array_merge($options, ['loanCurrency' => $loanCurrency, 'collateralCoin' => $collateralCoin, 'amount' => $amount])
         );
     }
+
+    /**
+     * Get Available Inventory
+     *
+     * GET /v5/crypto-loan-fixed/available-inventory
+     *
+     * @param string $currency Coin name, uppercase only
+     * @param string $term Fixed term 7: 7 days; 14: 14 days; 30: 30 days; 90: 90 days; 180: 180 days
+     * @param string $annualRate Customizable annual interest rate, e.g., 0.02 means 2%
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/new-crypto-loan/fixed/available-inventory
+     */
+    public function getFixedAvailableInventory(string $currency, string $term, string $annualRate, array $options = []): array
+    {
+        return $this->session->signRequest(
+            'GET',
+            '/v5/crypto-loan-fixed/available-inventory',
+            array_merge($options, ['currency' => $currency, 'term' => $term, 'annualRate' => $annualRate])
+        );
+    }
+
+    /**
+     * Get Repayment History
+     *
+     * GET /v5/crypto-loan-fixed/repayment-history
+     *
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/new-crypto-loan/fixed/repay-history
+     */
+    public function getFixedRepaymentHistory(array $options = []): array
+    {
+        return $this->session->signRequest('GET', '/v5/crypto-loan-fixed/repayment-history', $options);
+    }
+
+    /**
+     * Create Supply Order
+     *
+     * POST /v5/crypto-loan-fixed/supply
+     *
+     * @param string $orderCurrency Currency to lend
+     * @param string $orderAmount Amount to lend
+     * @param string $annualRate Annual interest rate
+     * @param string $term Term in days (7, 14, 30, 60, 90, 180)
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/new-crypto-loan/fixed/supply
+     */
+    public function supplyFixed(string $orderCurrency, string $orderAmount, string $annualRate, string $term, array $options = []): array
+    {
+        return $this->session->signRequest(
+            'POST',
+            '/v5/crypto-loan-fixed/supply',
+            array_merge($options, ['orderCurrency' => $orderCurrency, 'orderAmount' => $orderAmount, 'annualRate' => $annualRate, 'term' => $term])
+        );
+    }
+
+    /**
+     * Get Available Inventory
+     *
+     * GET /v5/crypto-loan-flexible/available-inventory
+     *
+     * @param string $currency Coin name, uppercase only
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/new-crypto-loan/flexible/available-inventory
+     */
+    public function getFlexibleAvailableInventory(string $currency, array $options = []): array
+    {
+        return $this->session->signRequest(
+            'GET',
+            '/v5/crypto-loan-flexible/available-inventory',
+            array_merge($options, ['currency' => $currency])
+        );
+    }
+
 }

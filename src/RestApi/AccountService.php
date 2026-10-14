@@ -424,4 +424,69 @@ final class AccountService extends BaseService
     {
         return $this->session->signRequest('POST', '/v5/account/upgrade-to-uta', $options);
     }
+
+    /**
+     * Apply demo funds
+     *
+     * Demo Trading only. Configure `baseUrl: 'https://api-demo.bybit.com'`;
+     * `testnet: true` uses api-testnet.bybit.com and cannot call this endpoint.
+     *
+     * POST /v5/account/demo-apply-money
+     *
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/demo#request-demo-trading-funds
+     */
+    public function demoApplyMoney(array $options = []): array
+    {
+        return $this->session->signRequest('POST', '/v5/account/demo-apply-money', $options);
+    }
+
+    /**
+     * Get Option Asset Info
+     *
+     * GET /v5/account/option-asset-info
+     *
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/account/option-asset-info
+     */
+    public function getOptionAssetInfo(array $options = []): array
+    {
+        return $this->session->signRequest('GET', '/v5/account/option-asset-info', $options);
+    }
+
+    /**
+     * Get Pay Info
+     *
+     * GET /v5/account/pay-info
+     *
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/account/pay-info
+     */
+    public function getPayInfo(array $options = []): array
+    {
+        return $this->session->signRequest('GET', '/v5/account/pay-info', $options);
+    }
+
+    /**
+     * Get Trade Info For Analysis
+     *
+     * GET /v5/account/trade-info-for-analysis
+     *
+     * @param string $symbol Symbol name, e.g. `BTCUSDT`, `ETHUSDT`.
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/account/trade-info-for-analysis
+     */
+    public function getTradeInfoForAnalysis(string $symbol, array $options = []): array
+    {
+        return $this->session->signRequest(
+            'GET',
+            '/v5/account/trade-info-for-analysis',
+            array_merge($options, ['symbol' => $symbol])
+        );
+    }
+
 }
