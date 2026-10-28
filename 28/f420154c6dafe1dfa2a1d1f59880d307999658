@@ -1,0 +1,106 @@
+src/RestApi/LendingService.php
+  s_4407c76e33bd1e::t_31b0c1f8294383 103
+  s_6af3615319c4cd::t_3ca9354a3b4fdf 1-102,104-138
+composer.json
+  s_4407c76e33bd1e::t_a7c1e3e8c698d4 25
+src/RestApi/PreUpgradeService.php
+  s_4407c76e33bd1e::t_f8e38e11f38cd4 20-130
+  s_6af3615319c4cd::t_3b28f9c26f59b7 1-19,131-141
+src/RestApi/ReferralService.php
+  s_4407c76e33bd1e::t_f8e38e11f38cd4 16-58
+  s_6af3615319c4cd::t_932d570d05ccd4 1-15,59-65
+src/RestApi/SpotXService.php
+  s_4407c76e33bd1e::t_f8e38e11f38cd4 21-127
+  s_6af3615319c4cd::t_c75fd750e5f828 1-20,128-134
+tests/RestApiSmokeTest.php
+  s_4407c76e33bd1e::t_cbc7101bb13280 25,94
+  s_4407c76e33bd1e::t_31b0c1f8294383 43,49-51,55-56,59-62
+CHANGELOG.md
+  s_4407c76e33bd1e::t_f8e38e11f38cd4 2
+  s_6af3615319c4cd::t_f33615c3f15349 3-99
+src/RestApi/SpotMarginService.php
+  s_4407c76e33bd1e::t_cbc7101bb13280 364-379
+  s_6af3615319c4cd::t_b892674661da50 357-363,380-389
+src/RestApi/SpreadTradeService.php
+  s_4407c76e33bd1e::t_cbc7101bb13280 16-204
+  s_6af3615319c4cd::t_e99746cdcd1f19 1-15,205-215
+src/RestApi/FiatService.php
+  s_4407c76e33bd1e::t_f8e38e11f38cd4 16-120
+  s_6af3615319c4cd::t_f34702ca8cc949 1-15,121-127
+src/RestApi/TaxService.php
+  s_4407c76e33bd1e::t_cbc7101bb13280 19-38
+  s_6af3615319c4cd::t_9e9212a68df13e 1-18,39-49
+tests/RestApiContractTest.php
+  s_4407c76e33bd1e::t_381e384b0a53c9 60-193,207,216-217
+  s_4407c76e33bd1e::t_d0841a3ca50972 194-199
+src/RestApi/EventService.php
+  s_4407c76e33bd1e::t_f8e38e11f38cd4 16-78
+  s_6af3615319c4cd::t_84171c399749cc 1-15,79-89
+src/RestApi/StrategyService.php
+  s_4407c76e33bd1e::t_cbc7101bb13280 16-74
+  s_6af3615319c4cd::t_0abd61bc9af812 1-15,75-85
+src/RestApi/AlphaService.php
+  s_4407c76e33bd1e::t_31b0c1f8294383 49-50,53,68-69,72,121-122,125,144-145,148,159-384,389-403,408-422,427-433,448-449,452,468-469,472,502-503,506,535-536,539,553-559,575-576,579,674-675,678
+  s_4407c76e33bd1e::t_f8e38e11f38cd4 387,406,425,605-670
+  s_4407c76e33bd1e::t_1fa9cc8e99534e 547-548
+  s_4407c76e33bd1e::t_44c198acf2a1dc 46-48
+  s_4407c76e33bd1e::t_3a5ad9a537fe72 51-52
+  s_4407c76e33bd1e::t_936513b1179ffa 54-56,65-67
+  s_4407c76e33bd1e::t_6dfc579a09d319 70-71
+  s_4407c76e33bd1e::t_7f9784c5a1d796 73-75,118-120
+  s_4407c76e33bd1e::t_eb59671c0abc11 123-124
+  s_4407c76e33bd1e::t_449f697f34e1cf 126-128,141-143
+  s_4407c76e33bd1e::t_83c61881404c59 146-147
+  s_4407c76e33bd1e::t_e640d9d1dc4960 149-151,156-158
+  s_4407c76e33bd1e::t_d3f8d37adec3f6 385-386
+  s_4407c76e33bd1e::t_c1b1b4f56460b6 388
+  s_4407c76e33bd1e::t_29bb44c3260dc9 404-405
+  s_4407c76e33bd1e::t_a5dc13822f37f8 407
+  s_4407c76e33bd1e::t_dc7115d8ec53aa 423-424
+  s_4407c76e33bd1e::t_2926e735f4c30b 426
+  s_4407c76e33bd1e::t_5640a87d9b17eb 434-436,445-447
+  s_4407c76e33bd1e::t_bd9f10a4d8ac8a 450-451
+  s_4407c76e33bd1e::t_322c65167827b8 453-455,465-467
+  s_4407c76e33bd1e::t_76117d64698edf 470-471
+  s_4407c76e33bd1e::t_dd26f0073c276d 473-475,499-501
+  s_4407c76e33bd1e::t_81e9f462b33bab 504-505
+  s_4407c76e33bd1e::t_916bb19a5abbeb 507-509,532-534
+  s_4407c76e33bd1e::t_7f0e3103a609ba 537-538
+  s_4407c76e33bd1e::t_99740a17359542 540-542,544-546
+  s_4407c76e33bd1e::t_59dbfb170918f6 549-552
+  s_4407c76e33bd1e::t_104f303735d2bf 560-562,572-574
+  s_4407c76e33bd1e::t_2bc8245a9daeec 577-578
+  s_4407c76e33bd1e::t_267a25c121c5fc 580-582,602-604
+  s_4407c76e33bd1e::t_e5f3cf947b6bca 671-673
+  s_4407c76e33bd1e::t_f02dd570c2bd9d 676-677
+  s_4407c76e33bd1e::t_c4f6dabc9fd7c7 679-681
+  s_4407c76e33bd1e::t_927fdda49dea5e 1-45,57-64,76-117,129-140,152-155,437-444,456-464,476-498,510-531,543,563-571,583-601
+src/Bybit.php
+  s_6af3615319c4cd::t_8dd03a1824ed7d 12
+src/Client.php
+  s_6af3615319c4cd::t_5f388e252521ac 10,16-18,22-23,26-29,43,49-51,55-56,59-62,75,81-83,87-88,91-94
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2-bit.2+419f699",
+  "base_commit_sha": "28f420154c6dafe1dfa2a1d1f59880d307999658",
+  "prompts": {},
+  "sessions": {
+    "s_4407c76e33bd1e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1812f-aac2-75f1-bfbf-7750671ae09b",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "doris-xiao-bybit <doris.xiao@bybit.com>"
+    },
+    "s_6af3615319c4cd": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a17b58-1fcd-78f2-af28-625b66470487",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "doris-xiao-bybit <doris.xiao@bybit.com>"
+    }
+  }
+}
