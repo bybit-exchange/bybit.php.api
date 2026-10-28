@@ -7,16 +7,26 @@ namespace Bybit;
 // gen-sdk-php:service-uses:start
 use Bybit\RestApi\AccountService;
 use Bybit\RestApi\AffiliateService;
+use Bybit\RestApi\AlphaService;
 use Bybit\RestApi\AssetService;
 use Bybit\RestApi\BotService;
 use Bybit\RestApi\BrokerService;
 use Bybit\RestApi\CryptoLoanService;
 use Bybit\RestApi\EarnService;
+use Bybit\RestApi\EventService;
+use Bybit\RestApi\FiatService;
+use Bybit\RestApi\LendingService;
 use Bybit\RestApi\MarketService;
 use Bybit\RestApi\P2pService;
 use Bybit\RestApi\PositionService;
+use Bybit\RestApi\PreUpgradeService;
+use Bybit\RestApi\ReferralService;
 use Bybit\RestApi\RfqService;
 use Bybit\RestApi\SpotMarginService;
+use Bybit\RestApi\SpotXService;
+use Bybit\RestApi\SpreadTradeService;
+use Bybit\RestApi\StrategyService;
+use Bybit\RestApi\TaxService;
 use Bybit\RestApi\TradeService;
 use Bybit\RestApi\UserService;
 
@@ -30,16 +40,26 @@ final class Client
     // gen-sdk-php:client-properties:start
     public readonly AccountService $account;
     public readonly AffiliateService $affiliate;
+    public readonly AlphaService $alpha;
     public readonly AssetService $asset;
     public readonly BotService $bot;
     public readonly BrokerService $broker;
     public readonly CryptoLoanService $cryptoLoan;
     public readonly EarnService $earn;
+    public readonly EventService $event;
+    public readonly FiatService $fiat;
+    public readonly LendingService $lending;
     public readonly MarketService $market;
     public readonly P2pService $p2p;
     public readonly PositionService $position;
+    public readonly PreUpgradeService $preUpgrade;
+    public readonly ReferralService $referral;
     public readonly RfqService $rfq;
     public readonly SpotMarginService $spotMargin;
+    public readonly SpotXService $spotX;
+    public readonly SpreadTradeService $spreadTrade;
+    public readonly StrategyService $strategy;
+    public readonly TaxService $tax;
     public readonly TradeService $trade;
     public readonly UserService $user;
     // gen-sdk-php:client-properties:end
@@ -52,16 +72,26 @@ final class Client
         // gen-sdk-php:client-inits:start
         $this->account = new AccountService($this->session);
         $this->affiliate = new AffiliateService($this->session);
+        $this->alpha = new AlphaService($this->session);
         $this->asset = new AssetService($this->session);
         $this->bot = new BotService($this->session);
         $this->broker = new BrokerService($this->session);
         $this->cryptoLoan = new CryptoLoanService($this->session);
         $this->earn = new EarnService($this->session);
+        $this->event = new EventService($this->session);
+        $this->fiat = new FiatService($this->session);
+        $this->lending = new LendingService($this->session);
         $this->market = new MarketService($this->session);
         $this->p2p = new P2pService($this->session);
         $this->position = new PositionService($this->session);
+        $this->preUpgrade = new PreUpgradeService($this->session);
+        $this->referral = new ReferralService($this->session);
         $this->rfq = new RfqService($this->session);
         $this->spotMargin = new SpotMarginService($this->session);
+        $this->spotX = new SpotXService($this->session);
+        $this->spreadTrade = new SpreadTradeService($this->session);
+        $this->strategy = new StrategyService($this->session);
+        $this->tax = new TaxService($this->session);
         $this->trade = new TradeService($this->session);
         $this->user = new UserService($this->session);
         // gen-sdk-php:client-inits:end

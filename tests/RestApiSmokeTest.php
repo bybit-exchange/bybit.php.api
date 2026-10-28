@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  *   2. Send a URL under `/v5/`.
  *   3. Use a Bybit V5 verb (GET, POST, PUT, or DELETE).
  *
- * This is the ~240-endpoint safety net the initial commit lacked — a wrong
+ * This is the 400+-endpoint safety net the initial commit lacked — a wrong
  * HTTP verb, a broken PSR-4 mapping, or a method that forgets to call session
  * would previously ship green. It doesn't validate the exact path shape (that
  * would duplicate source); it locks the load-bearing invariant that every
@@ -40,16 +40,26 @@ final class RestApiSmokeTest extends TestCase
         return [
             \Bybit\RestApi\AccountService::class,
             \Bybit\RestApi\AffiliateService::class,
+            \Bybit\RestApi\AlphaService::class,
             \Bybit\RestApi\AssetService::class,
             \Bybit\RestApi\BotService::class,
             \Bybit\RestApi\BrokerService::class,
             \Bybit\RestApi\CryptoLoanService::class,
             \Bybit\RestApi\EarnService::class,
+            \Bybit\RestApi\EventService::class,
+            \Bybit\RestApi\FiatService::class,
+            \Bybit\RestApi\LendingService::class,
             \Bybit\RestApi\MarketService::class,
             \Bybit\RestApi\P2pService::class,
             \Bybit\RestApi\PositionService::class,
+            \Bybit\RestApi\PreUpgradeService::class,
+            \Bybit\RestApi\ReferralService::class,
             \Bybit\RestApi\RfqService::class,
             \Bybit\RestApi\SpotMarginService::class,
+            \Bybit\RestApi\SpotXService::class,
+            \Bybit\RestApi\SpreadTradeService::class,
+            \Bybit\RestApi\StrategyService::class,
+            \Bybit\RestApi\TaxService::class,
             \Bybit\RestApi\TradeService::class,
             \Bybit\RestApi\UserService::class,
         ];
@@ -81,7 +91,7 @@ final class RestApiSmokeTest extends TestCase
      */
     public function testEveryServiceMethodDispatchesAv5Request(string $serviceClass, string $methodName): void
     {
-        // 240+ service methods — one shared 200-OK mock queue per test call.
+        // 400+ service methods — one shared 200-OK mock queue per test call.
         $history = [];
         $client = $this->makeClient(new Response(200, ['Content-Type' => 'application/json'], self::OK_ENVELOPE), $history);
 
