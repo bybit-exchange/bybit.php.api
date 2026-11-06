@@ -2,6 +2,9 @@
 
 ## 0.1.2 — 2026-10-28
 
+### Fixed
+- Allow public margin token conversion queries without credentials while retaining authenticated OTC data and live credential updates.
+
 ### Added
 - `AlphaService::getLpOrderList(...)`
 - `AlphaService::getLpPayTokenList(...)`

@@ -25,8 +25,8 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * Session owns the Guzzle client + auth-header assembly. Every service class
- * receives a Session instance and dispatches through publicRequest() /
- * signRequest().
+ * receives a Session instance and dispatches through publicRequest(),
+ * signRequest(), or optionalAuthRequest().
  *
  * Signing invariant: the payload signed and the query string sent on the wire
  * MUST be byte-identical. We build ONE query_str (sortAndEncode after key
@@ -71,6 +71,19 @@ final class Session
     public function signRequest(string $method, string $path, ?array $params = null): array
     {
         return $this->dispatch($method, $path, $params, true);
+    }
+
+    /**
+     * Endpoint supporting public data and authenticated account-specific data.
+     * Reads the live configuration on every request to support credential updates.
+     *
+     * @param array<mixed,mixed>|null $params Query params for GET/DELETE, body for POST/PUT/PATCH.
+     * @return BybitEnvelope
+     */
+    public function optionalAuthRequest(string $method, string $path, ?array $params = null): array
+    {
+        $signed = $this->config->apiKey !== null && $this->config->apiSecret !== null;
+        return $this->dispatch($method, $path, $params, $signed);
     }
 
     /**

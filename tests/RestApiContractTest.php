@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bybit\Tests;
 
+use Bybit\Authentication;
 use Bybit\Client;
 use Bybit\Configuration;
 use GuzzleHttp\Client as GuzzleClient;
@@ -171,6 +172,67 @@ final class RestApiContractTest extends TestCase
         $this->assertFalse($request->hasHeader('X-BAPI-SIGN'));
     }
 
+    public function testMarginCoinConversionInfoIsPublicWithoutCredentials(): void
+    {
+        $history = [];
+        $client = $this->makeClient($history, false);
+
+        $client->lending->insLoanEnsureTokensConvert(['productId' => '81']);
+
+        $this->assertCount(1, $history);
+        $request = $history[0]['request'];
+        $this->assertSame('GET', $request->getMethod());
+        $this->assertSame('/v5/ins-loan/ensure-tokens-convert', $request->getUri()->getPath());
+        $this->assertSame('productId=81', $request->getUri()->getQuery());
+        $this->assertFalse($request->hasHeader('X-BAPI-API-KEY'));
+        $this->assertFalse($request->hasHeader('X-BAPI-SIGN'));
+    }
+
+    public function testMarginCoinConversionInfoRetainsAuthenticatedOtcAccess(): void
+    {
+        $history = [];
+        $client = $this->makeClient($history);
+
+        $client->lending->insLoanEnsureTokensConvert(['productId' => '81']);
+
+        $this->assertCount(1, $history);
+        $request = $history[0]['request'];
+        $this->assertSame('productId=81', $request->getUri()->getQuery());
+        $this->assertSame('test-key', $request->getHeaderLine('X-BAPI-API-KEY'));
+        $this->assertSame(
+            Authentication::signV5(
+                'test-secret',
+                $request->getHeaderLine('X-BAPI-TIMESTAMP'),
+                'test-key',
+                $request->getHeaderLine('X-BAPI-RECV-WINDOW'),
+                $request->getUri()->getQuery()
+            ),
+            $request->getHeaderLine('X-BAPI-SIGN')
+        );
+    }
+
+    public function testMarginCoinConversionInfoTracksCredentialUpdates(): void
+    {
+        $history = [];
+        $config = $this->makeConfiguration($history, false, 3);
+        $client = new Client($config);
+
+        $client->lending->insLoanEnsureTokensConvert();
+        $config->apiKey = 'rotated-key';
+        $config->apiSecret = 'rotated-secret';
+        $client->lending->insLoanEnsureTokensConvert();
+        $config->apiKey = null;
+        $config->apiSecret = null;
+        $client->lending->insLoanEnsureTokensConvert();
+
+        $this->assertCount(3, $history);
+        $this->assertFalse($history[0]['request']->hasHeader('X-BAPI-API-KEY'));
+        $this->assertSame('rotated-key', $history[1]['request']->getHeaderLine('X-BAPI-API-KEY'));
+        $this->assertNotSame('', $history[1]['request']->getHeaderLine('X-BAPI-SIGN'));
+        $this->assertFalse($history[2]['request']->hasHeader('X-BAPI-API-KEY'));
+        $this->assertFalse($history[2]['request']->hasHeader('X-BAPI-SIGN'));
+    }
+
     public function testSmokeProviderCoversEveryClientService(): void
     {
         $covered = [];
@@ -206,13 +268,21 @@ final class RestApiContractTest extends TestCase
     /** @param array<int,array<string,mixed>> $history */
     private function makeClient(array &$history, bool $authenticated = true): Client
     {
-        $mock = new MockHandler([
-            new Response(200, ['Content-Type' => 'application/json'], '{"retCode":0,"retMsg":"OK","result":{},"retExtInfo":{},"time":0}'),
-        ]);
+        return new Client($this->makeConfiguration($history, $authenticated));
+    }
+
+    /** @param array<int,array<string,mixed>> $history */
+    private function makeConfiguration(array &$history, bool $authenticated = true, int $responseCount = 1): Configuration
+    {
+        $responses = [];
+        for ($i = 0; $i < $responseCount; $i++) {
+            $responses[] = new Response(200, ['Content-Type' => 'application/json'], '{"retCode":0,"retMsg":"OK","result":{},"retExtInfo":{},"time":0}');
+        }
+        $mock = new MockHandler($responses);
         $stack = HandlerStack::create($mock);
         $stack->push(Middleware::history($history));
 
-        return new Client(new Configuration(
+        return new Configuration(
             apiKey: $authenticated ? 'test-key' : null,
             apiSecret: $authenticated ? 'test-secret' : null,
             httpClient: new GuzzleClient([
@@ -220,6 +290,6 @@ final class RestApiContractTest extends TestCase
                 'base_uri' => 'https://api-testnet.bybit.com',
                 'http_errors' => false,
             ]),
-        ));
+        );
     }
 }

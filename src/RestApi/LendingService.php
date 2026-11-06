@@ -53,6 +53,7 @@ final class LendingService extends BaseService
 
     /**
      * Get Margin Token Conversion Details
+     * Uses public data without credentials and account-specific OTC data when authenticated.
      *
      * GET /v5/ins-loan/ensure-tokens-convert
      *
@@ -61,7 +62,7 @@ final class LendingService extends BaseService
      */
     public function insLoanEnsureTokensConvert(array $options = []): array
     {
-        return $this->session->signRequest('GET', '/v5/ins-loan/ensure-tokens-convert', $options);
+        return $this->session->optionalAuthRequest('GET', '/v5/ins-loan/ensure-tokens-convert', $options);
     }
 
     /**
