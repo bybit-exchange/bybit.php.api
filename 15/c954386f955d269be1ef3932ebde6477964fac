@@ -1,0 +1,26 @@
+src/Session.php
+  s_f323b02ad70227::t_d13244475c3fee 28-29,76-86
+  s_f323b02ad70227::t_5778fb74d524c4 87-88
+src/RestApi/LendingService.php
+  s_f323b02ad70227::t_d13244475c3fee 56,65
+CHANGELOG.md
+  s_f323b02ad70227::t_d13244475c3fee 5-7
+tests/RestApiContractTest.php
+  s_f323b02ad70227::t_74b64ad218e94e 7,175-235,271-281,285,293
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2-bit.2+419f699",
+  "base_commit_sha": "15c954386f955d269be1ef3932ebde6477964fac",
+  "prompts": {},
+  "sessions": {
+    "s_f323b02ad70227": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1afab-2900-7431-b09a-0b2896dc1452",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "johnny.wang <johnny.wang@bybit.com>"
+    }
+  }
+}
