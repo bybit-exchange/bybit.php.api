@@ -1,0 +1,22 @@
+README.md
+  s_33dd690d736a55::t_64411681c0bc9b 158,161-163,166-169,172-173
+.github/workflows/ci.yml
+  s_33dd690d736a55::t_64411681c0bc9b 85
+  s_33dd690d736a55::t_8c03ef392c1081 86-87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2-bit.2+419f699",
+  "base_commit_sha": "1dce33b2ffee7c28f696528293f988baa53719d5",
+  "prompts": {},
+  "sessions": {
+    "s_33dd690d736a55": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1af71-6427-7071-a3d6-58763307d849",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "doris-xiao-bybit <doris.xiao@bybit.com>"
+    }
+  }
+}
