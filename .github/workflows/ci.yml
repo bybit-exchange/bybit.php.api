@@ -82,10 +82,9 @@ jobs:
 
   lowest-deps:
     # Verify the SDK still builds and tests pass against the LOWEST versions
-    # of every `require` constraint (guzzle ^7.5 → 7.5.0, etc.). The regular
-    # `build` job resolves highest-compatible and would silently start using
-    # a Guzzle 7.6+-only API without bumping the constraint, which would break
-    # users pinned to 7.5.
+    # of every `require` constraint (guzzle ^7.16.1 → 7.16.1, etc.). The regular
+    # `build` job resolves highest-compatible versions and would not catch use
+    # of APIs unavailable in the minimum supported dependency versions.
     name: PHP 8.1 — prefer-lowest dep resolve + phpunit
     runs-on: ubuntu-latest
     steps:
