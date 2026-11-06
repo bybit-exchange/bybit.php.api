@@ -155,12 +155,22 @@ Each API group is a readonly property on `Bybit\Client`:
 - `$client->asset` — coin balance, funding history
 - `$client->user` — sub-accounts, API-key management
 - `$client->affiliate` — sub-affiliate lists
+- `$client->alpha` — Alpha trading, prediction markets, liquidity pools
 - `$client->broker` — broker earnings, distributions
 - `$client->cryptoLoan` — flexible / fixed crypto loans
+- `$client->event` — event-contract orders, positions, trades, settlements
+- `$client->fiat` — fiat balances, quotes, and trade history
+- `$client->lending` — institutional loans
 - `$client->rfq` — request-for-quote (block trades)
 - `$client->spotMargin` — UTA spot margin
+- `$client->spotX` — Launchpool, Puzzle, and Token Splash activities
+- `$client->spreadTrade` — spread instruments and orders
+- `$client->strategy` — algorithmic trading strategies
+- `$client->tax` — batch tax reports
 - `$client->earn` — earn, liquidity mining, RWA, PWM, hold-to-earn
 - `$client->p2p` — P2P advertise / order / chat
+- `$client->preUpgrade` — pre-upgrade account, order, execution, and position history
+- `$client->referral` — referral campaigns, commissions, and invitations
 - `$client->bot` — DCA / grid / futures-combo / futures-grid / martingale
 
 ## Error Handling

@@ -354,4 +354,37 @@ final class SpotMarginService extends BaseService
         );
     }
 
+    /**
+     * Query Fixed-Rate Borrow Penalty Interest
+     *
+     * GET /v5/spot-margin-trade/fixedborrow-interest-accrued
+     *
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/spot-margin-uta/fixedborrow-interest-accrued
+     */
+    public function queryFixedBorrowPenaltyInterest(array $options = []): array
+    {
+        return $this->session->signRequest('GET', '/v5/spot-margin-trade/fixedborrow-interest-accrued', $options);
+    }
+
+    /**
+     * Cancel Fixed-Rate Borrow Order
+     *
+     * POST /v5/spot-margin-trade/fixedborrow-order-cancel
+     *
+     * @param string $orderId Fixed-rate borrow order ID, not the contract match ID.
+     * @param array $options
+     * @return array Bybit V5 ApiResponse envelope (retCode / retMsg / result / retExtInfo / time).
+     * @see https://bybit-exchange.github.io/docs/v5/spot-margin-uta/fixedborrow-order-cancel
+     */
+    public function cancelFixedBorrowOrder(string $orderId, array $options = []): array
+    {
+        return $this->session->signRequest(
+            'POST',
+            '/v5/spot-margin-trade/fixedborrow-order-cancel',
+            array_merge($options, ['orderId' => $orderId])
+        );
+    }
+
 }
